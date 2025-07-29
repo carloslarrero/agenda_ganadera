@@ -1,0 +1,15 @@
+
+export 'package:agenda_ganadera/message/recordatorioMessage.dart';
+export 'package:agenda_ganadera/message/stockMessage.dart';
+export 'package:agenda_ganadera/pages/stockPage.dart';
+export 'package:agenda_ganadera/message/editMessage.dart';
+export 'package:agenda_ganadera/message/deleteMessage.dart';
+export 'package:agenda_ganadera/message/animalesMessage.dart';
+export 'package:agenda_ganadera/pages/tarjaPage.dart';
+export 'package:agenda_ganadera/message/activityMessage.dart';
+export 'package:flutter/material.dart';
+export 'pages/principalPage.dart';
+export 'style/appbarStyle.dart';
+export 'package:font_awesome_flutter/font_awesome_flutter.dart';
+export 'package:agenda_ganadera/pages/foldersPage.dart';
+export 'package:agenda_ganadera/pages/folderContenido.dart';
