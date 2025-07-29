@@ -1,4 +1,6 @@
 // ignore_for_file: file_names
+import 'dart:math';
+
 import 'package:agenda_ganadera/barril.dart';
 import 'package:intl/intl.dart';
 
@@ -11,6 +13,23 @@ class Principalpage extends StatefulWidget {
 
 class _PrincipalpageState extends State<Principalpage> {
   List<Map<String, dynamic>> recordatorios = [];
+  final List<String> consejos = [
+    'El ojo del Dueño engorda el Gnado',
+    'Con la Bandera, se orienta la reacción del animal',
+    'Vacunación y Desparasitación Periódica',
+    'Más come la vaca de un bocado, que la oveja en toda una jornada'
+  ];
+  int indiceConsejo = 0;
+  void cambiarConsejo() {
+    setState(() {
+      int nuevoIndice;
+      do {
+        nuevoIndice = Random().nextInt(consejos.length);
+      } while (nuevoIndice == indiceConsejo);
+      indiceConsejo = nuevoIndice;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -206,6 +225,38 @@ class _PrincipalpageState extends State<Principalpage> {
                   decoration: BoxDecoration(
                       color: const Color(0XFFADBC9F),
                       borderRadius: BorderRadius.circular(40)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const Text(
+                        'Consejo del día',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        consejos[indiceConsejo],
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  )),
+              //FloatingActionButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> const Tarjapage()));})
+              Container(
+                  height: 130,
+                  width: 260,
+                  margin: const EdgeInsets.only(top: 40),
+                  decoration: BoxDecoration(
+                      color: const Color(0XFFADBC9F),
+                      borderRadius: BorderRadius.circular(40)),
                   child: const Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -214,23 +265,12 @@ class _PrincipalpageState extends State<Principalpage> {
                         height: 5,
                       ),
                       Text(
-                        'Consejo del día',
+                        'Nuevo Widget',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        'El ojo del dueño, engorda el ganado',
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                        textAlign: TextAlign.center,
-                      )
                     ],
                   )),
-              //FloatingActionButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> const Tarjapage()));})
             ],
           ),
         ),

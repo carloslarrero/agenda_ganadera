@@ -21,15 +21,15 @@ class _RecordatorioMessageState extends State<RecordatorioMessage> {
       context: context,
       initialDate: _fechaSeleccionada,
       firstDate: DateTime.now(),
-      lastDate: DateTime(2100),
+      lastDate: DateTime(2500),
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: const ColorScheme.light(
               primary: Color(0XFF12372A), // Color del header
             ),
-            dialogBackgroundColor:
-                const Color(0xFFFBFADA), // Fondo del datepicker
+            dialogTheme: const DialogThemeData(
+                backgroundColor: Color(0xFFFBFADA)), // Fondo del datepicker
           ),
           child: child!,
         );
@@ -65,13 +65,10 @@ class _RecordatorioMessageState extends State<RecordatorioMessage> {
               hintText: 'Ej: Vacunación aftosa',
               border: OutlineInputBorder(),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: Color(0XFF12372A)), 
+                borderSide: BorderSide(color: Color(0XFF12372A)),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: Color(0XFF12372A),
-                    width: 2), 
+                borderSide: BorderSide(color: Color(0XFF12372A), width: 2),
               ),
             ),
           ),

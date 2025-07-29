@@ -35,7 +35,8 @@ class _FoldercontenidoState extends State<Foldercontenido> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false, //evita que el Scaffold se redimensione cuando aparece el teclado
+      resizeToAvoidBottomInset:
+          false, //evita que el Scaffold se redimensione cuando aparece el teclado
       backgroundColor: const Color(0XFFADBC9F),
       appBar: const Appbarstyle(title: 'Actividades', buttonBack: true),
       body: Column(
@@ -62,49 +63,50 @@ class _FoldercontenidoState extends State<Foldercontenido> {
                       child: const Icon(Icons.add, size: 50),
                     ),
                     ...activities.map((activity) => GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Tarjapage(
-                                      activityTitle: activity['title'],//mandamos el titulo de la actividad
-                                      activityDate: activity['date'],//mandamos la fecha de la actividad
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.all(20),
-                                height: 75,
-                                width: 250,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: const Color(0XFF12372A),
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      activity['title'],
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Text(
-                                      '${activity['date'].day}/${activity['date'].month}/${activity['date'].year}',
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Tarjapage(
+                                  activityTitle: activity[
+                                      'title'], //mandamos el titulo de la actividad
+                                  activityDate: activity[
+                                      'date'], //mandamos la fecha de la actividad
                                 ),
                               ),
-                            ))
-                        .toList(),
+                            );
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.all(20),
+                            height: 75,
+                            width: 250,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: const Color(0XFF12372A),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  activity['title'],
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 5),
+                                Text(
+                                  '${activity['date'].day}/${activity['date'].month}/${activity['date'].year}',
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )),
                   ],
                 ),
               ),
