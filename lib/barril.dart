@@ -1,4 +1,3 @@
-
 export 'package:agenda_ganadera/message/recordatorioMessage.dart';
 export 'package:agenda_ganadera/message/stockMessage.dart';
 export 'package:agenda_ganadera/pages/stockPage.dart';
@@ -13,3 +12,4 @@ export 'style/appbarStyle.dart';
 export 'package:font_awesome_flutter/font_awesome_flutter.dart';
 export 'package:agenda_ganadera/pages/foldersPage.dart';
 export 'package:agenda_ganadera/pages/folderContenido.dart';
+//hola comentario
