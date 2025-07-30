@@ -218,37 +218,40 @@ class _PrincipalpageState extends State<Principalpage> {
                       ],
                     )),
               ),
-              Container(
-                  height: 130,
-                  width: 260,
-                  margin: const EdgeInsets.only(top: 40),
-                  decoration: BoxDecoration(
-                      color: const Color(0XFFADBC9F),
-                      borderRadius: BorderRadius.circular(40)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const Text(
-                        'Consejo del día',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        consejos[indiceConsejo],
-                        style: const TextStyle(
-                          fontSize: 18,
+              GestureDetector(
+                onTap: cambiarConsejo,
+                child: Container(
+                    height: 130,
+                    width: 260,
+                    margin: const EdgeInsets.only(top: 40),
+                    decoration: BoxDecoration(
+                        color: const Color(0XFFADBC9F),
+                        borderRadius: BorderRadius.circular(40)),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                          height: 5,
                         ),
-                        textAlign: TextAlign.center,
-                      )
-                    ],
-                  )),
+                        const Text(
+                          'Consejo del día',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          consejos[indiceConsejo],
+                          style: const TextStyle(
+                            fontSize: 18,
+                          ),
+                          textAlign: TextAlign.center,
+                        )
+                      ],
+                    )),
+              ),
               //FloatingActionButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> const Tarjapage()));})
               Container(
                   height: 130,

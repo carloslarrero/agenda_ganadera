@@ -58,6 +58,7 @@ class _FoldercontenidoState extends State<Foldercontenido> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    const Icon(Icons.delete),
                     GestureDetector(
                       onTap: _showActivityDialog,
                       child: const Icon(Icons.add, size: 50),
