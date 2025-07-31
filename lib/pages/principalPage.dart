@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 import 'dart:math';
-
 import 'package:agenda_ganadera/barril.dart';
 import 'package:intl/intl.dart';
 
@@ -253,27 +252,35 @@ class _PrincipalpageState extends State<Principalpage> {
                     )),
               ),
               //FloatingActionButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> const Tarjapage()));})
-              Container(
-                  height: 130,
-                  width: 260,
-                  margin: const EdgeInsets.only(top: 40),
-                  decoration: BoxDecoration(
-                      color: const Color(0XFFADBC9F),
-                      borderRadius: BorderRadius.circular(40)),
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        'Nuevo Widget',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  )),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Nuevowidget()));
+                },
+                child: Container(
+                    height: 130,
+                    width: 260,
+                    margin: const EdgeInsets.only(top: 40),
+                    decoration: BoxDecoration(
+                        color: const Color(0XFFADBC9F),
+                        borderRadius: BorderRadius.circular(40)),
+                    child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          'Galeria de Imagenes',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    )),
+              ),
             ],
           ),
         ),

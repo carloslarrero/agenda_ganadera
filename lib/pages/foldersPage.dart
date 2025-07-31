@@ -1,6 +1,5 @@
 import 'package:agenda_ganadera/barril.dart';
 
-
 class Folderspage extends StatefulWidget {
   const Folderspage({super.key});
 
@@ -15,7 +14,7 @@ class _FolderspageState extends State<Folderspage> {
   void createFolder() {
     setState(() {
       containers.add({
-        'title': '', 
+        'title': '',
         'isEditable': true,
       });
       _focusNodes.add(FocusNode());
@@ -52,7 +51,8 @@ class _FolderspageState extends State<Folderspage> {
                       final container = entry.value;
                       return GestureDetector(
                         onTap: () {
-                          if (!container['isEditable'] && container['title'].isNotEmpty) {
+                          if (!container['isEditable'] &&
+                              container['title'].isNotEmpty) {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -81,12 +81,14 @@ class _FolderspageState extends State<Folderspage> {
                                         if (value.trim().isNotEmpty) {
                                           setState(() {
                                             containers[index]['title'] = value;
-                                            containers[index]['isEditable'] = false;
+                                            containers[index]['isEditable'] =
+                                                false;
                                           });
                                         }
                                       },
                                       onEditingComplete: () {
-                                        if (_focusNodes[index].hasPrimaryFocus) {
+                                        if (_focusNodes[index]
+                                            .hasPrimaryFocus) {
                                           _focusNodes[index].unfocus();
                                         }
                                       },
@@ -117,7 +119,7 @@ class _FolderspageState extends State<Folderspage> {
                           ],
                         ),
                       );
-                    }).toList(),
+                    }),
                     GestureDetector(
                       onTap: createFolder,
                       child: const Icon(

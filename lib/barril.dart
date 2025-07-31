@@ -1,3 +1,4 @@
+export 'package:agenda_ganadera/pages/nuevowidget.dart';
 export 'package:agenda_ganadera/message/recordatorioMessage.dart';
 export 'package:agenda_ganadera/message/stockMessage.dart';
 export 'package:agenda_ganadera/pages/stockPage.dart';
