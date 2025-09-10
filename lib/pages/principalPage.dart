@@ -259,30 +259,16 @@ class _PrincipalpageState extends State<Principalpage> {
                       MaterialPageRoute(
                           builder: (context) => const Nuevowidget()));
                 },
-                child: Container(
-                    height: 130,
-                    width: 260,
-                    margin: const EdgeInsets.only(top: 40),
-                    decoration: BoxDecoration(
-                        color: const Color(0XFFADBC9F),
-                        borderRadius: BorderRadius.circular(40)),
-                    child: const Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          'Galeria de Imagenes',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    )),
               ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: Container(
+        height: 70,
+        decoration: BoxDecoration(
+          color: const Color(0xFF12372A),
+          borderRadius: BorderRadius.circular(50),
         ),
       ),
     );

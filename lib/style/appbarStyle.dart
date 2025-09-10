@@ -1,7 +1,11 @@
 import 'package:agenda_ganadera/barril.dart';
 
 class Appbarstyle extends StatelessWidget implements PreferredSizeWidget {
-  const Appbarstyle({super.key, required this.title, required this.buttonBack, });
+  const Appbarstyle({
+    super.key,
+    required this.title,
+    required this.buttonBack,
+  });
 
   final String title;
   final bool buttonBack;
@@ -13,6 +17,10 @@ class Appbarstyle extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(40),
+              bottomRight: Radius.circular(40))),
       title: Text(
         title,
         style: const TextStyle(
@@ -21,11 +29,16 @@ class Appbarstyle extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       backgroundColor: const Color(0xFF12372A),
       leading: buttonBack
-          ? IconButton( //si el buttonBack es true muestra si es false da un valor null
-              icon: const Icon(Icons.arrow_back_ios_new_sharp,
-                  color: Colors.white, size: 25,), 
+          ? IconButton(
+              //si el buttonBack es true muestra si es false da un valor null
+              icon: const Icon(
+                Icons.arrow_back_ios_new_sharp,
+                color: Colors.white,
+                size: 25,
+              ),
               onPressed: () => Navigator.pop(context),
-            ): null,
+            )
+          : null,
     );
   }
 }
