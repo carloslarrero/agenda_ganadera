@@ -18,6 +18,7 @@ class _PrincipalpageState extends State<Principalpage> {
     'Vacunación y Desparasitación Periódica',
     'Más come la vaca de un bocado, que la oveja en toda una jornada'
   ];
+  final colorin = const Color(0xFFFBFADA);
   int indiceConsejo = 0;
   void cambiarConsejo() {
     setState(() {
@@ -251,24 +252,25 @@ class _PrincipalpageState extends State<Principalpage> {
                       ],
                     )),
               ),
-              //FloatingActionButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> const Tarjapage()));})
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Nuevowidget()));
-                },
-              ),
             ],
           ),
         ),
       ),
       bottomNavigationBar: Container(
-        height: 70,
-        decoration: BoxDecoration(
-          color: const Color(0xFF12372A),
-          borderRadius: BorderRadius.circular(50),
+        height: 65,
+        decoration: const BoxDecoration(
+          color: Color(0xFF12372A),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(icon: const Icon(Icons.person), iconSize: 35, color: colorin, onPressed: (){},),
+            IconButton(icon: const Icon(FontAwesomeIcons.clipboard), iconSize: 35, color: colorin, onPressed: (){},),
+            IconButton(icon: const Icon(FontAwesomeIcons.solidRectangleList), iconSize: 35, color: colorin, onPressed: (){},),
+            IconButton(icon: const Icon(FontAwesomeIcons.weightHanging), iconSize: 35, color: colorin, onPressed: (){},),
+            IconButton(icon: const Icon(Icons.settings), iconSize: 35, color: colorin, onPressed: (){},)
+          ],
         ),
       ),
     );

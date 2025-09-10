@@ -19,8 +19,8 @@ class Appbarstyle extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(40),
-              bottomRight: Radius.circular(40))),
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30))),
       title: Text(
         title,
         style: const TextStyle(

@@ -28,7 +28,7 @@ class _RecordatorioMessageState extends State<RecordatorioMessage> {
             colorScheme: const ColorScheme.light(
               primary: Color(0XFF12372A), // Color del header
             ),
-            dialogTheme: const DialogThemeData(
+            dialogTheme: const DialogTheme(
                 backgroundColor: Color(0xFFFBFADA)), // Fondo del datepicker
           ),
           child: child!,

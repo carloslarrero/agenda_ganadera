@@ -13,4 +13,5 @@ export 'style/appbarStyle.dart';
 export 'package:font_awesome_flutter/font_awesome_flutter.dart';
 export 'package:agenda_ganadera/pages/foldersPage.dart';
 export 'package:agenda_ganadera/pages/folderContenido.dart';
+export 'package:ionicons/ionicons.dart';
 //hola comentario
