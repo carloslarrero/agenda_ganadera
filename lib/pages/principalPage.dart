@@ -256,22 +256,64 @@ class _PrincipalpageState extends State<Principalpage> {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        height: 65,
-        decoration: const BoxDecoration(
-          color: Color(0xFF12372A),
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(icon: const Icon(Icons.person), iconSize: 35, color: colorin, onPressed: (){},),
-            IconButton(icon: const Icon(FontAwesomeIcons.clipboard), iconSize: 35, color: colorin, onPressed: (){},),
-            IconButton(icon: const Icon(FontAwesomeIcons.solidRectangleList), iconSize: 35, color: colorin, onPressed: (){},),
-            IconButton(icon: const Icon(FontAwesomeIcons.weightHanging), iconSize: 35, color: colorin, onPressed: (){},),
-            IconButton(icon: const Icon(Icons.settings), iconSize: 35, color: colorin, onPressed: (){},)
-          ],
-        ),
+      bottomNavigationBar: Builder( 
+        builder: (context) {
+          final double anchoPantalla = MediaQuery.of(context).size.width;
+          final double margenHorizontal = anchoPantalla > 600 
+              ? anchoPantalla * 0.20 
+              : 15.0; 
+
+          return Container(
+            margin: EdgeInsets.only(left: margenHorizontal, right: margenHorizontal, bottom: 25),
+            decoration: BoxDecoration(
+              color: const Color(0xFF12372A),
+              borderRadius: const BorderRadius.all(Radius.circular(30)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.3),
+                  blurRadius: 15,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: SafeArea(
+              bottom: false,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _buildNavItem(Icons.person, 'Perfil'),
+                    _buildNavItem(FontAwesomeIcons.clipboard, 'Control'),
+                    _buildNavItem(FontAwesomeIcons.solidRectangleList, 'Stock'),
+                    _buildNavItem(FontAwesomeIcons.weightHanging, 'Peso'),
+                    _buildNavItem(Icons.settings, 'Ajustes'),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+      ),
+    );
+  }
+
+  // Método para construir los botones con ícono y texto
+  Widget _buildNavItem(IconData icon, String label) {
+    return GestureDetector(
+      onTap: () {
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize
+            .min,
+        children: [
+          Icon(icon, size: 35, color: colorin),
+          const SizedBox(height: 2),
+          Text(
+            label,
+            style: TextStyle(color: colorin, fontSize: 12),
+          ),
+        ],
       ),
     );
   }

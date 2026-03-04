@@ -11,12 +11,14 @@ class Appbarstyle extends StatelessWidget implements PreferredSizeWidget {
   final bool buttonBack;
 
   @override
-  Size get preferredSize => const Size.fromHeight(
-      kToolbarHeight); //define el tamaño preferido del appbar
+  // 1. Cambiamos kToolbarHeight por un número menor, por ejemplo 40.0
+  Size get preferredSize => const Size.fromHeight(40.0); 
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      // 2. Le decimos al AppBar que su altura ahora es 40.0
+      toolbarHeight: 40.0, 
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(30),

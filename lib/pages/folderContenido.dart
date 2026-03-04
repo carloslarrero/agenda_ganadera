@@ -35,8 +35,7 @@ class _FoldercontenidoState extends State<Foldercontenido> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset:
-          false, //evita que el Scaffold se redimensione cuando aparece el teclado
+      resizeToAvoidBottomInset: false, //evita que el Scaffold se redimensione cuando aparece el teclado
       backgroundColor: const Color(0XFFADBC9F),
       appBar: const Appbarstyle(title: 'Actividades', buttonBack: true),
       body: Column(
@@ -46,68 +45,79 @@ class _FoldercontenidoState extends State<Foldercontenido> {
             widget.folderName,
             style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
           ),
+          const SizedBox(height: 15), // Un poquito de espacio extra debajo del título
           Expanded(
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              width: 360,
+              // 1. MÁRGENES FIJOS: 20px a la izquierda, derecha y abajo.
+              margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20), 
+              // 2. EL SECRETO: Ancho infinito para que se adapte a cualquier pantalla
+              width: double.infinity, 
               decoration: BoxDecoration(
                 color: const Color(0XFFADBC9F),
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(color: const Color(0XFF12372A), width: 2.0),
               ),
+              // Agregamos un padding interno para que el contenido no pegue con los bordes
+              padding: const EdgeInsets.symmetric(vertical: 20),
               child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    GestureDetector(
-                      onTap: _showActivityDialog,
-                      child: const Icon(Icons.add, size: 50),
-                    ),
-                    ...activities.map((activity) => GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Tarjapage(
-                                  activityTitle: activity[
-                                      'title'], //mandamos el titulo de la actividad
-                                  activityDate: activity[
-                                      'date'], //mandamos la fecha de la actividad
+                child: SizedBox(
+                  // Esto asegura que la columna interna también ocupe todo el ancho
+                  // y así los botones queden perfectamente en el centro de la caja.
+                  width: double.infinity, 
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center, // Centramos los elementos
+                    children: [
+                      GestureDetector(
+                        onTap: _showActivityDialog,
+                        child: const Icon(Icons.add, size: 50),
+                      ),
+                      const SizedBox(height: 15),
+                      ...activities.map((activity) => GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Tarjapage(
+                                    activityTitle: activity['title'],
+                                    activityDate: activity['date'],
+                                  ),
                                 ),
+                              );
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(vertical: 10), // Margen vertical entre actividades
+                              height: 75,
+                              // El botón de cada actividad también lo hacemos adaptable o le dejamos su tamaño
+                              width: 280, 
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: const Color(0XFF12372A),
+                                borderRadius: BorderRadius.circular(50),
                               ),
-                            );
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.all(20),
-                            height: 75,
-                            width: 250,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: const Color(0XFF12372A),
-                              borderRadius: BorderRadius.circular(50),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    activity['title'],
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    '${activity['date'].day}/${activity['date'].month}/${activity['date'].year}',
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
                             ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  activity['title'],
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  '${activity['date'].day}/${activity['date'].month}/${activity['date'].year}',
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )),
-                  ],
+                          )),
+                    ],
+                  ),
                 ),
               ),
             ),
