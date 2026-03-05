@@ -1,4 +1,3 @@
-// ignore_for_file: file_names
 import 'dart:math';
 import 'package:agenda_ganadera/barril.dart';
 import 'package:intl/intl.dart';
@@ -12,24 +11,8 @@ class Principalpage extends StatefulWidget {
 
 class _PrincipalpageState extends State<Principalpage> {
   List<Map<String, dynamic>> recordatorios = [];
-  final List<String> consejos = [
-    'El ojo del Dueño engorda el Gnado',
-    'Con la Bandera, se orienta la reacción del animal',
-    'Vacunación y Desparasitación Periódica',
-    'Más come la vaca de un bocado, que la oveja en toda una jornada'
-  ];
   final colorin = const Color(0xFFFBFADA);
   int indiceConsejo = 0;
-  void cambiarConsejo() {
-    setState(() {
-      int nuevoIndice;
-      do {
-        nuevoIndice = Random().nextInt(consejos.length);
-      } while (nuevoIndice == indiceConsejo);
-      indiceConsejo = nuevoIndice;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,273 +22,326 @@ class _PrincipalpageState extends State<Principalpage> {
         child: Center(
           child: Column(
             children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Folderspage()));
-                },
-                child: Container(
-                  height: 120,
-                  width: 200,
-                  margin: const EdgeInsets.only(top: 50),
+               Builder(builder: (context) {
+                final double anchoPantalla = MediaQuery.of(context).size.width;
+                final double margenHorizontal =
+                    anchoPantalla > 600 ? anchoPantalla * 0.25 : 60.0;
+
+                return Container(
+                  height: 180,
+                  width: double.infinity,
+                  margin: EdgeInsets.only(
+                      top: 40, left: margenHorizontal, right: margenHorizontal),
                   decoration: BoxDecoration(
-                      color: const Color(0xFF12372A),
-                      borderRadius: BorderRadius.circular(50)),
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        'CONTROL',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 12,
-                      ),
-                      Icon(
-                        FontAwesomeIcons.clipboardCheck,
-                        color: Colors.white,
-                        size: 55,
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                height: 150,
-                width: 260,
-                margin: const EdgeInsets.only(top: 40),
-                decoration: BoxDecoration(
-                    color: const Color(0XFFADBC9F),
-                    borderRadius: BorderRadius.circular(40)),
-                child: GestureDetector(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => RecordatorioMessage(
-                        onSave: (nombre, fecha) {
-                          setState(() {
-                            recordatorios.add({
-                              'nombre': nombre,
-                              'fecha': fecha,
-                            });
-                          });
-                        },
-                      ),
-                    );
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Recordatorios',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(Icons.notification_add)
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      if (recordatorios.isNotEmpty)
-                        Expanded(
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(40),
-                              bottomRight: Radius.circular(40),
+                      color: const Color(0XFFADBC9F),
+                      borderRadius: BorderRadius.circular(30)),
+                  child: const Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Pronostico del Clima',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
                             ),
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: recordatorios
-                                    .map((recordatorio) => Column(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 12,
-                                                  right: 12,
-                                                  bottom: 3),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    recordatorio['nombre'],
-                                                    style: const TextStyle(
-                                                        fontSize: 16),
-                                                  ),
-                                                  Text(
-                                                    DateFormat('dd/MM/yyyy')
-                                                        .format(recordatorio[
-                                                            'fecha']),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ))
-                                    .toList(),
-                              ),
+                          ],
+                        ),
+                        SizedBox(height: 1),
+                        Divider(
+                          color: Color(0xFF12372A),
+                          thickness: 1.0,
+                        ),
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              'Aquí va el contenido',
+                              style: TextStyle(fontSize: 16),
                             ),
                           ),
                         )
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Stockpage()));
-                },
-                child: Container(
-                    height: 130,
-                    width: 260,
-                    margin: const EdgeInsets.only(top: 40),
-                    decoration: BoxDecoration(
-                        color: const Color(0XFFADBC9F),
-                        borderRadius: BorderRadius.circular(40)),
-                    child: const Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                );
+              }),
+
+              Builder(builder: (context) {
+                final double anchoPantalla = MediaQuery.of(context).size.width;
+                final double margenHorizontal =
+                    anchoPantalla > 600 ? anchoPantalla * 0.25 : 60.0;
+
+                return Container(
+                  height: 180,
+                  width: double.infinity,
+                  margin: EdgeInsets.only(
+                      top: 40, left: margenHorizontal, right: margenHorizontal),
+                  decoration: BoxDecoration(
+                      color: const Color(0XFFADBC9F),
+                      borderRadius: BorderRadius.circular(30)),
+                  child: GestureDetector(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => RecordatorioMessage(
+                          onSave: (nombre, fecha) {
+                            setState(() {
+                              recordatorios.add({
+                                'nombre': nombre,
+                                'fecha': fecha,
+                              });
+                            });
+                          },
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Recordatorios',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Icon(
+                                Icons.notification_add,
+                                size: 27,
+                              )
+                            ],
+                          ),
+                          const SizedBox(height: 1),
+                          const Divider(
+                            color: Color(0xFF12372A),
+                            thickness: 1.0,
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          if (recordatorios.isNotEmpty)
+                            Expanded(
+                              child: ClipRRect(
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: recordatorios
+                                        .map((recordatorio) => Column(
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 10),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween, // Espacio entre el nombre y la fecha
+                                                    children: [
+                                                      Text(
+                                                        recordatorio['nombre'],
+                                                        style: const TextStyle(
+                                                            fontSize: 18),
+                                                      ),
+                                                      Text(
+                                                        DateFormat('dd/MM/yyyy')
+                                                            .format(
+                                                                recordatorio[
+                                                                    'fecha']),
+                                                        style: const TextStyle(
+                                                            fontSize: 18,
+                                                            color:
+                                                                Colors.black),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                const Divider(
+                                                  color: Colors.black26,
+                                                  thickness: 1.0,
+                                                  height: 1.0,
+                                                ),
+                                              ],
+                                            ))
+                                        .toList(),
+                                  ),
+                                ),
+                              ),
+                            )
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }),
+              Builder(builder: (context) {
+                final double anchoPantalla = MediaQuery.of(context).size.width;
+                final double margenHorizontal =
+                    anchoPantalla > 600 ? anchoPantalla * 0.25 : 60.0;
+
+                return Container(
+                  height: 145,
+                  width: double.infinity,
+                  margin: EdgeInsets.only(
+                      top: 50, left: margenHorizontal, right: margenHorizontal),
+                  decoration: BoxDecoration(
+                      color: const Color(0XFFADBC9F),
+                      borderRadius: BorderRadius.circular(30)),
+                  // AQUÍ ESTÁ EL CAMBIO: Envolvemos en Padding
+                  child: const Padding(
+                    padding: EdgeInsets.all(20.0), // Escudo invisible de 20px
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment
+                          .center, // Centramos todo verticalmente
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          height: 5,
-                        ),
                         Text(
                           'Stock de Animales',
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 1),
+                        Divider(
+                          color: Color(0xFF12372A),
+                          thickness: 1.0,
                         ),
                         SizedBox(
-                          height: 25,
+                          height: 2,
                         ),
                         Text(
                           '1231',
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 5,
+                              fontSize: 24, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Total',
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(fontSize: 14),
                         )
                       ],
-                    )),
-              ),
-              GestureDetector(
-                onTap: cambiarConsejo,
-                child: Container(
-                    height: 130,
-                    width: 260,
-                    margin: const EdgeInsets.only(top: 40),
-                    decoration: BoxDecoration(
-                        color: const Color(0XFFADBC9F),
-                        borderRadius: BorderRadius.circular(40)),
+                    ),
+                  ),
+                );
+              }),
+              Builder(builder: (context) {
+                final double anchoPantalla = MediaQuery.of(context).size.width;
+                final double margenHorizontal =
+                    anchoPantalla > 600 ? anchoPantalla * 0.25 : 60.0;
+
+                return Container(
+                  height: 180,
+                  width: double.infinity,
+                  margin: EdgeInsets.only(
+                      top: 40, left: margenHorizontal, right: margenHorizontal),
+                  decoration: BoxDecoration(
+                      color: const Color(0XFFADBC9F),
+                      borderRadius: BorderRadius.circular(30)),
+                  child: const Padding(
+                    padding: EdgeInsets.all(20.0),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const SizedBox(
-                          height: 5,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Stock de Almacén',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
-                        const Text(
-                          'Consejo del día',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                        SizedBox(height: 1),
+                        Divider(
+                          color: Color(0xFF12372A),
+                          thickness: 1.0,
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          consejos[indiceConsejo],
-                          style: const TextStyle(
-                            fontSize: 18,
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              'Aquí va el contenido',
+                              style: TextStyle(fontSize: 16),
+                            ),
                           ),
-                          textAlign: TextAlign.center,
                         )
                       ],
-                    )),
-              ),
+                    ),
+                  ),
+                );
+              }),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: Builder( 
-        builder: (context) {
-          final double anchoPantalla = MediaQuery.of(context).size.width;
-          final double margenHorizontal = anchoPantalla > 600 
-              ? anchoPantalla * 0.20 
-              : 15.0; 
+      bottomNavigationBar: Builder(builder: (context) {
+        final double anchoPantalla = MediaQuery.of(context).size.width;
+        final double margenHorizontal =
+            anchoPantalla > 600 ? anchoPantalla * 0.20 : 15.0;
 
-          return Container(
-            margin: EdgeInsets.only(left: margenHorizontal, right: margenHorizontal, bottom: 25),
-            decoration: BoxDecoration(
-              color: const Color(0xFF12372A),
-              borderRadius: const BorderRadius.all(Radius.circular(30)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  blurRadius: 15,
-                  offset: const Offset(0, 8),
-                ),
-              ],
-            ),
-            child: SafeArea(
-              bottom: false,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    _buildNavItem(Icons.person, 'Perfil'),
-                    _buildNavItem(FontAwesomeIcons.clipboard, 'Control'),
-                    _buildNavItem(FontAwesomeIcons.solidRectangleList, 'Stock'),
-                    _buildNavItem(FontAwesomeIcons.weightHanging, 'Peso'),
-                    _buildNavItem(Icons.settings, 'Ajustes'),
-                  ],
-                ),
+        return Container(
+          margin: EdgeInsets.only(
+              left: margenHorizontal, right: margenHorizontal, bottom: 25),
+          decoration: BoxDecoration(
+            color: const Color(0xFF12372A),
+            borderRadius: const BorderRadius.all(Radius.circular(30)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.3),
+                blurRadius: 15,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: SafeArea(
+            bottom: false,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildNavItem(Icons.person, 'Perfil', () {}),
+                  _buildNavItem(FontAwesomeIcons.clipboard, 'Control', () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Folderspage()));
+                  }),
+                  _buildNavItem(FontAwesomeIcons.solidRectangleList, 'Stock',
+                      () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Stockpage()));
+                  }),
+                  _buildNavItem(FontAwesomeIcons.weightHanging, 'Peso', () {}),
+                  _buildNavItem(
+                      FontAwesomeIcons.boxesStacked, 'Almacén', () {}),
+                ],
               ),
             ),
-          );
-        }
-      ),
+          ),
+        );
+      }),
     );
   }
 
   // Método para construir los botones con ícono y texto
-  Widget _buildNavItem(IconData icon, String label) {
+  Widget _buildNavItem(IconData icon, String label, VoidCallback onTapAction) {
     return GestureDetector(
-      onTap: () {
-      },
+      onTap: onTapAction,
+      behavior: HitTestBehavior.opaque,
       child: Column(
-        mainAxisSize: MainAxisSize
-            .min,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Icon(icon, size: 35, color: colorin),
           const SizedBox(height: 2),

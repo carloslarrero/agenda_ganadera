@@ -85,10 +85,9 @@ class _FoldercontenidoState extends State<Foldercontenido> {
                               );
                             },
                             child: Container(
-                              margin: const EdgeInsets.symmetric(vertical: 10), // Margen vertical entre actividades
+                              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20), 
                               height: 75,
-                              // El botón de cada actividad también lo hacemos adaptable o le dejamos su tamaño
-                              width: 280, 
+                              width: double.infinity, 
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 color: const Color(0XFF12372A),

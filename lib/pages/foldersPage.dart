@@ -65,56 +65,63 @@ class _FolderspageState extends State<Folderspage> {
                         },
                         child: Column(
                           children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: const Color(0XFFADBC9F),
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                              height: 450,
-                              width: 300,
-                              margin: const EdgeInsets.only(bottom: 30),
-                              padding: const EdgeInsets.all(20),
-                              child: container['isEditable']
-                                  ? TextField(
-                                      focusNode: _focusNodes[index],
-                                      onSubmitted: (value) {
-                                        if (value.trim().isNotEmpty) {
-                                          setState(() {
-                                            containers[index]['title'] = value;
-                                            containers[index]['isEditable'] =
-                                                false;
-                                          });
-                                        }
-                                      },
-                                      onEditingComplete: () {
-                                        if (_focusNodes[index]
-                                            .hasPrimaryFocus) {
-                                          _focusNodes[index].unfocus();
-                                        }
-                                      },
-                                      decoration: const InputDecoration(
-                                        hintText: 'Agregar Título',
-                                        border: InputBorder.none,
-                                      ),
-                                      style: const TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                      autofocus: true,
-                                    )
-                                  : Column(
-                                      children: [
-                                        Text(
-                                          container['title'],
+                            Builder(
+                              builder: (context) {
+                                final double anchoPantalla = MediaQuery.of(context).size.width;
+                                final double margenHorizontal = anchoPantalla > 600 ? anchoPantalla * 0.33 : 80.0;
+
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    color: const Color(0XFFADBC9F),
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  height: 450,
+                                  width: double.infinity,
+                                  margin: EdgeInsets.only(bottom: 30, left: margenHorizontal, right: margenHorizontal),
+                                  padding: const EdgeInsets.all(20),
+                                  child: container['isEditable']
+                                      ? TextField(
+                                          focusNode: _focusNodes[index],
+                                          onSubmitted: (value) {
+                                            if (value.trim().isNotEmpty) {
+                                              setState(() {
+                                                containers[index]['title'] = value;
+                                                containers[index]['isEditable'] =
+                                                    false;
+                                              });
+                                            }
+                                          },
+                                          onEditingComplete: () {
+                                            if (_focusNodes[index]
+                                                .hasPrimaryFocus) {
+                                              _focusNodes[index].unfocus();
+                                            }
+                                          },
+                                          decoration: const InputDecoration(
+                                            hintText: 'Agregar Título',
+                                            border: InputBorder.none,
+                                          ),
                                           style: const TextStyle(
-                                            fontSize: 25,
+                                            fontSize: 20,
                                             fontWeight: FontWeight.bold,
                                           ),
                                           textAlign: TextAlign.center,
+                                          autofocus: true,
+                                        )
+                                      : Column(
+                                          children: [
+                                            Text(
+                                              container['title'],
+                                              style: const TextStyle(
+                                                fontSize: 25,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                );
+                              }
                             ),
                           ],
                         ),

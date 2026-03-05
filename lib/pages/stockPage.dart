@@ -80,29 +80,22 @@ class _StockpageState extends State<Stockpage> {
                 onPressed: _showAddDialog, 
                 icon: const Icon(Icons.add, size: 45, color: Colors.black),
               ),
-              /*IconButton(
-                onPressed: (){}, 
-                icon: const Icon(Icons.lock_outline_rounded, size: 35, color: Colors.black),
-              ),*/
             ],
           ),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                height: 540,
-                width: 340,
-                decoration: BoxDecoration(
-                  color: const Color(0XFF12372A), 
-                  borderRadius: BorderRadius.circular(50),
-                ),
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.only(left: 20, right: 20, bottom: 30, top: 10),
+              width: double.infinity, 
+              decoration: BoxDecoration(
+                color: const Color(0XFF12372A), 
+                borderRadius: BorderRadius.circular(40),
               ),
-              Container(
-                height: 520,
-                width: 320,
+              padding: const EdgeInsets.all(10), 
+              
+              child: Container(
                 decoration: BoxDecoration(
                   color: const Color(0XFF12372A), 
-                  borderRadius: BorderRadius.circular(40), 
+                  borderRadius: BorderRadius.circular(30), 
                   border: Border.all(color: const Color(0xFFFBFADA), width: 2.0),
                 ),
                 clipBehavior: Clip.antiAlias,
@@ -129,7 +122,7 @@ class _StockpageState extends State<Stockpage> {
                   ],
                 ),
               ),
-            ],
+            ),
           ),
         ],
       ),
