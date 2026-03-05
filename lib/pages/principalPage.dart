@@ -22,7 +22,7 @@ class _PrincipalpageState extends State<Principalpage> {
         child: Center(
           child: Column(
             children: [
-               Builder(builder: (context) {
+              Builder(builder: (context) {
                 final double anchoPantalla = MediaQuery.of(context).size.width;
                 final double margenHorizontal =
                     anchoPantalla > 600 ? anchoPantalla * 0.25 : 60.0;
@@ -35,15 +35,15 @@ class _PrincipalpageState extends State<Principalpage> {
                   decoration: BoxDecoration(
                       color: const Color(0XFFADBC9F),
                       borderRadius: BorderRadius.circular(30)),
-                  child: const Padding(
-                    padding: EdgeInsets.all(20.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
                     child: Column(
                       children: [
-                        Row(
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Pronostico del Clima',
+                              'Clima',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 18,
@@ -51,25 +51,42 @@ class _PrincipalpageState extends State<Principalpage> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 1),
-                        Divider(
+                        const SizedBox(height: 1),
+                        const Divider(
                           color: Color(0xFF12372A),
                           thickness: 1.0,
                         ),
                         Expanded(
-                          child: Center(
-                            child: Text(
-                              'Aquí va el contenido',
-                              style: TextStyle(fontSize: 16),
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              child: const Column(
+                                children: [
+                                  Text('Clima Actual', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                                  SizedBox(height: 2),
+                                  Text('24 °C', style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Color(0xFF12372A)),),
+                                  Text('Soleado', style: TextStyle(fontSize: 14),),
+                                ],
+                              ),
                             ),
-                          ),
-                        )
+                            Container(
+                              child: const Column(
+                                children: [
+                                  Text('Pronóstico', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                                  Text('Mañana: 26 °C, Soleado', style: TextStyle(fontSize: 14),),
+                                  Text('Jueves: 22 °C, Lluvioso', style: TextStyle(fontSize: 14),),
+                                  Text('Viernes: 20 °C, Nublado', style: TextStyle(fontSize: 14),),
+                                ],
+                              ),
+                            )
+                          ],
+                        ))
                       ],
                     ),
                   ),
                 );
               }),
-
               Builder(builder: (context) {
                 final double anchoPantalla = MediaQuery.of(context).size.width;
                 final double margenHorizontal =
