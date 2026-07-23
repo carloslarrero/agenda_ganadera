@@ -63,20 +63,48 @@ class _PrincipalpageState extends State<Principalpage> {
                             Container(
                               child: const Column(
                                 children: [
-                                  Text('Clima Actual', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                                  Text(
+                                    'Clima Actual',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                   SizedBox(height: 2),
-                                  Text('24 °C', style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Color(0xFF12372A)),),
-                                  Text('Soleado', style: TextStyle(fontSize: 14),),
+                                  Text(
+                                    '24 °C',
+                                    style: TextStyle(
+                                        fontSize: 26,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xFF12372A)),
+                                  ),
+                                  Text(
+                                    'Soleado',
+                                    style: TextStyle(fontSize: 14),
+                                  ),
                                 ],
                               ),
                             ),
                             Container(
                               child: const Column(
                                 children: [
-                                  Text('Pronóstico', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
-                                  Text('Mañana: 26 °C, Soleado', style: TextStyle(fontSize: 14),),
-                                  Text('Jueves: 22 °C, Lluvioso', style: TextStyle(fontSize: 14),),
-                                  Text('Viernes: 20 °C, Nublado', style: TextStyle(fontSize: 14),),
+                                  Text(
+                                    'Pronóstico',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    'Mañana: 26 °C, Soleado',
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                  Text(
+                                    'Jueves: 22 °C, Lluvioso',
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                  Text(
+                                    'Viernes: 20 °C, Nublado',
+                                    style: TextStyle(fontSize: 14),
+                                  ),
                                 ],
                               ),
                             )
@@ -300,55 +328,6 @@ class _PrincipalpageState extends State<Principalpage> {
           ),
         ),
       ),
-      bottomNavigationBar: Builder(builder: (context) {
-        final double anchoPantalla = MediaQuery.of(context).size.width;
-        final double margenHorizontal =
-            anchoPantalla > 600 ? anchoPantalla * 0.20 : 15.0;
-
-        return Container(
-          margin: EdgeInsets.only(
-              left: margenHorizontal, right: margenHorizontal, bottom: 25),
-          decoration: BoxDecoration(
-            color: const Color(0xFF12372A),
-            borderRadius: const BorderRadius.all(Radius.circular(30)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.3),
-                blurRadius: 15,
-                offset: const Offset(0, 8),
-              ),
-            ],
-          ),
-          child: SafeArea(
-            bottom: false,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _buildNavItem(Icons.person, 'Perfil', () {}),
-                  _buildNavItem(FontAwesomeIcons.clipboard, 'Control', () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Folderspage()));
-                  }),
-                  _buildNavItem(FontAwesomeIcons.solidRectangleList, 'Stock',
-                      () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Stockpage()));
-                  }),
-                  _buildNavItem(FontAwesomeIcons.weightHanging, 'Peso', () {}),
-                  _buildNavItem(
-                      FontAwesomeIcons.boxesStacked, 'Almacén', () {}),
-                ],
-              ),
-            ),
-          ),
-        );
-      }),
     );
   }
 

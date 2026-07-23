@@ -12,8 +12,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Agenda Ganadera',
-      home: Principalpage(),
+      home: const MainNavigation(),
     );
   }
 }
-

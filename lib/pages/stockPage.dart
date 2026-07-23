@@ -30,10 +30,11 @@ class _StockpageState extends State<Stockpage> {
   }
 
   void _calcularTotal() {
-    total = animales.fold(0, (sum, animal) => sum + (animal['cantidad'] as int));
+    total =
+        animales.fold(0, (sum, animal) => sum + (animal['cantidad'] as int));
   }
 
-    void _showEditDialog(int index) {
+  void _showEditDialog(int index) {
     showDialog(
       context: context,
       builder: (context) => EditMessage(
@@ -61,42 +62,43 @@ class _StockpageState extends State<Stockpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false, //evita que el Scaffold se redimensione cuando aparece el teclado
+      resizeToAvoidBottomInset:
+          false, //evita que el Scaffold se redimensione cuando aparece el teclado
       backgroundColor: const Color(0xFFFBFADA),
-      appBar: const Appbarstyle(title: 'Stock', buttonBack: true),
+      appBar: const Appbarstyle(title: 'Stock', buttonBack: false),
       body: Column(
         children: [
           const SizedBox(height: 25),
-              const Text(
-                'Stock de Animales', 
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              ),
-
+          const Text(
+            'Stock de Animales',
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                onPressed: _showAddDialog, 
+                onPressed: _showAddDialog,
                 icon: const Icon(Icons.add, size: 45, color: Colors.black),
               ),
             ],
           ),
           Expanded(
             child: Container(
-              margin: const EdgeInsets.only(left: 20, right: 20, bottom: 30, top: 10),
-              width: double.infinity, 
+              margin: const EdgeInsets.only(
+                  left: 20, right: 20, bottom: 30, top: 10),
+              width: double.infinity,
               decoration: BoxDecoration(
-                color: const Color(0XFF12372A), 
+                color: const Color(0XFF12372A),
                 borderRadius: BorderRadius.circular(40),
               ),
-              padding: const EdgeInsets.all(10), 
-              
+              padding: const EdgeInsets.all(10),
               child: Container(
                 decoration: BoxDecoration(
-                  color: const Color(0XFF12372A), 
-                  borderRadius: BorderRadius.circular(30), 
-                  border: Border.all(color: const Color(0xFFFBFADA), width: 2.0),
+                  color: const Color(0XFF12372A),
+                  borderRadius: BorderRadius.circular(30),
+                  border:
+                      Border.all(color: const Color(0xFFFBFADA), width: 2.0),
                 ),
                 clipBehavior: Clip.antiAlias,
                 child: Column(
@@ -104,8 +106,8 @@ class _StockpageState extends State<Stockpage> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(
-                          top: 10,    
-                          bottom: 10, 
+                          top: 10,
+                          bottom: 10,
                           left: 2,
                           right: 2,
                         ),
@@ -137,21 +139,25 @@ class _StockpageState extends State<Stockpage> {
           decoration: const BoxDecoration(
             color: Color(0XFF12372A),
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30)
-            ),
+                topLeft: Radius.circular(30), topRight: Radius.circular(30)),
           ),
           child: ListTile(
             title: Text(
               animales[index]['tipo'],
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.white),
             ),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   animales[index]['cantidad'].toString(),
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.white),
                 ),
                 const SizedBox(width: 15),
                 GestureDetector(
@@ -163,22 +169,22 @@ class _StockpageState extends State<Stockpage> {
           ),
         ),
         const Divider(
-        color: Color(0xFFFBFADA),
-        thickness: 1.5,          
-        height: 1,               
-      ),
+          color: Color(0xFFFBFADA),
+          thickness: 1.5,
+          height: 1,
+        ),
       ],
-    ); 
+    );
   }
 
   Widget _buildTotalWidget() {
     return Column(
       children: [
         const Divider(
-        color: Color(0xFFFBFADA),
-        thickness: 1.5,          
-        height: 1,               
-      ),
+          color: Color(0xFFFBFADA),
+          thickness: 1.5,
+          height: 1,
+        ),
         Padding(
           padding: const EdgeInsets.all(10),
           child: Row(
