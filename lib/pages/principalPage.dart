@@ -94,15 +94,15 @@ class _PrincipalpageState extends State<Principalpage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    'Mañana: 26 °C, Soleado',
+                                    'Mañana: 26 °C',
                                     style: TextStyle(fontSize: 14),
                                   ),
                                   Text(
-                                    'Jueves: 22 °C, Lluvioso',
+                                    'Jueves: 22 °C',
                                     style: TextStyle(fontSize: 14),
                                   ),
                                   Text(
-                                    'Viernes: 20 °C, Nublado',
+                                    'Viernes: 20 °C',
                                     style: TextStyle(fontSize: 14),
                                   ),
                                 ],
