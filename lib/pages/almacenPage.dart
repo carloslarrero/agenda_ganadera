@@ -9,6 +9,36 @@ class AlmacenPage extends StatefulWidget {
 
 class _AlmacenPageState extends State<AlmacenPage> {
   int seccionActual = 0;
+  List<Map<String, dynamic>> activities = [];
+
+  void _showActivityDialog({
+    required String titulo,
+    required String labelTitulo,
+    bool mostrarCantidad = false,
+    bool mostrarMM = false,
+    bool mostrarKG = false,
+    bool fechaVencimiento = false,
+  }) {
+    showDialog(
+      context: context,
+      builder: (context) => AlmacenMessage(
+        titulo: titulo,
+        labelTitulo: labelTitulo,
+        mostrarCantidad: mostrarCantidad,
+        mostrarMM: mostrarMM,
+        mostrarKG: mostrarKG,
+        fechaVencimiento: fechaVencimiento,
+        onSave: (title, date) {
+          setState(() {
+            activities.insert(0, {
+              'title': title,
+              'date': date,
+            });
+          });
+        },
+      ),
+    );
+  }
 
   final List<String> titulos = [
     'Medicamentos',
@@ -75,8 +105,8 @@ class _AlmacenPageState extends State<AlmacenPage> {
               index: seccionActual,
               children: [
                 _medicamentos(),
+                _insumos(),
                 _alimentacion(),
-                _herramientas(),
               ],
             ),
           ),
@@ -90,7 +120,30 @@ class _AlmacenPageState extends State<AlmacenPage> {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () {},
+            onTap: () => _showActivityDialog(
+              titulo: "Nuevo Medicamento",
+              labelTitulo: "Medicamento",
+              mostrarCantidad: true,
+              mostrarMM: true,
+              fechaVencimiento: true,
+            ),
+            child: const Icon(Icons.add, size: 50, color: Color(0XFF12372A)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _insumos() {
+    return Center(
+      child: Column(
+        children: [
+          GestureDetector(
+            onTap: () => _showActivityDialog(
+              titulo: "Nuevo Insumo",
+              labelTitulo: "Insumo",
+              mostrarCantidad: true,
+            ),
             child: const Icon(Icons.add, size: 50, color: Color(0XFF12372A)),
           ),
         ],
@@ -103,20 +156,13 @@ class _AlmacenPageState extends State<AlmacenPage> {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () {},
-            child: const Icon(Icons.add, size: 50, color: Color(0XFF12372A)),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _herramientas() {
-    return Center(
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: () {},
+            onTap: () => _showActivityDialog(
+              titulo: "Nuevo Alimento",
+              labelTitulo: "Alimento",
+              mostrarCantidad: true,
+              mostrarKG: true,
+              fechaVencimiento: true,
+            ),
             child: const Icon(Icons.add, size: 50, color: Color(0XFF12372A)),
           ),
         ],

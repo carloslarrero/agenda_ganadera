@@ -17,4 +17,5 @@ export 'package:ionicons/ionicons.dart';
 export 'package:agenda_ganadera/style/bottom_navigator.dart';
 export 'package:agenda_ganadera/pages/almacenPage.dart';
 export 'package:agenda_ganadera/style/main_navigation.dart';
+export 'package:agenda_ganadera/message/almacenMessage.dart';
 //hola comentario
