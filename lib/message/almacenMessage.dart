@@ -1,7 +1,7 @@
 import 'package:agenda_ganadera/barril.dart';
 
 class AlmacenMessage extends StatefulWidget {
-  final Function(String, DateTime) onSave;
+  final Function(Map<String, dynamic>) onSave;
 
   final String titulo;
   final String labelTitulo;
@@ -30,9 +30,9 @@ class _AlmacenMessageState extends State<AlmacenMessage> {
   final TextEditingController _cantidadController = TextEditingController();
   final TextEditingController _mmController = TextEditingController();
   final TextEditingController _kgController = TextEditingController();
-  final TextEditingController _vencimientoController = TextEditingController();
 
   DateTime _selectedDate = DateTime.now();
+  DateTime _selectedExpirationDate = DateTime.now();
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -47,6 +47,30 @@ class _AlmacenMessageState extends State<AlmacenMessage> {
         _selectedDate = picked;
       });
     }
+  }
+
+  Future<void> _selectExpirationDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedExpirationDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2100),
+    );
+
+    if (picked != null) {
+      setState(() {
+        _selectedExpirationDate = picked;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _cantidadController.dispose();
+    _mmController.dispose();
+    _kgController.dispose();
+    super.dispose();
   }
 
   @override
@@ -77,7 +101,7 @@ class _AlmacenMessageState extends State<AlmacenMessage> {
                 controller: _cantidadController,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
-                  labelText: "Cantidad",
+                  labelText: 'Cantidad',
                 ),
               ),
             ],
@@ -85,9 +109,11 @@ class _AlmacenMessageState extends State<AlmacenMessage> {
               const SizedBox(height: 15),
               TextField(
                 controller: _mmController,
-                keyboardType: TextInputType.number,
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
                 decoration: const InputDecoration(
-                  labelText: "Cantidad (ml)",
+                  labelText: 'Cantidad (ml)',
                 ),
               ),
             ],
@@ -95,33 +121,53 @@ class _AlmacenMessageState extends State<AlmacenMessage> {
               const SizedBox(height: 15),
               TextField(
                 controller: _kgController,
-                keyboardType: TextInputType.number,
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
                 decoration: const InputDecoration(
-                  labelText: "Cantidad (kg)",
+                  labelText: 'Cantidad (kg)',
                 ),
               ),
             ],
             if (widget.fechaVencimiento) ...[
-              const SizedBox(height: 15),
-              TextField(
-                controller: _vencimientoController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: "Fecha de Vencimiento",
-                ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  const Expanded(
+                    child: Text(
+                      'Vencimiento:',
+                      style: TextStyle(fontSize: 17),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () => _selectExpirationDate(context),
+                    child: Text(
+                      '${_selectedExpirationDate.day}/'
+                      '${_selectedExpirationDate.month}/'
+                      '${_selectedExpirationDate.year}',
+                      style: const TextStyle(
+                        color: Color(0XFF12372A),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
             const SizedBox(height: 20),
             Row(
               children: [
-                const Text(
-                  'Fecha:',
-                  style: TextStyle(fontSize: 18),
+                const Expanded(
+                  child: Text(
+                    'Fecha:',
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ),
                 TextButton(
                   onPressed: () => _selectDate(context),
                   child: Text(
-                    '${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}',
+                    '${_selectedDate.day}/'
+                    '${_selectedDate.month}/'
+                    '${_selectedDate.year}',
                     style: const TextStyle(
                       color: Color(0XFF12372A),
                     ),
@@ -134,7 +180,9 @@ class _AlmacenMessageState extends State<AlmacenMessage> {
       ),
       actions: [
         TextButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            Navigator.pop(context);
+          },
           child: const Text(
             'Cancelar',
             style: TextStyle(
@@ -146,14 +194,21 @@ class _AlmacenMessageState extends State<AlmacenMessage> {
         ),
         TextButton(
           onPressed: () {
-            if (_titleController.text.isNotEmpty) {
-              widget.onSave(
-                _titleController.text,
-                _selectedDate,
-              );
-
-              Navigator.pop(context);
+            if (_titleController.text.trim().isEmpty) {
+              return;
             }
+
+            widget.onSave({
+              'title': _titleController.text.trim(),
+              'cantidad': _cantidadController.text.trim(),
+              'ml': _mmController.text.trim(),
+              'kg': _kgController.text.trim(),
+              'date': _selectedDate,
+              'expirationDate':
+                  widget.fechaVencimiento ? _selectedExpirationDate : null,
+            });
+
+            Navigator.pop(context);
           },
           child: const Text(
             'Guardar',
