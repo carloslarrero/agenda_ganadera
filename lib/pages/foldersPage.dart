@@ -85,48 +85,70 @@ class _FolderspageState extends State<Folderspage> {
                                     left: margenHorizontal,
                                     right: margenHorizontal),
                                 padding: const EdgeInsets.all(20),
-                                child: container['isEditable']
-                                    ? TextField(
-                                        focusNode: _focusNodes[index],
-                                        onSubmitted: (value) {
-                                          if (value.trim().isNotEmpty) {
-                                            setState(() {
-                                              containers[index]['title'] =
-                                                  value;
-                                              containers[index]['isEditable'] =
-                                                  false;
-                                            });
-                                          }
-                                        },
-                                        onEditingComplete: () {
-                                          if (_focusNodes[index]
-                                              .hasPrimaryFocus) {
-                                            _focusNodes[index].unfocus();
-                                          }
-                                        },
-                                        decoration: const InputDecoration(
-                                          hintText: 'Agregar Título',
-                                          border: InputBorder.none,
-                                        ),
-                                        style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                        autofocus: true,
-                                      )
-                                    : Column(
-                                        children: [
-                                          Text(
-                                            container['title'],
-                                            style: const TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold,
+                                child: Stack(
+                                  children: [
+                                    SizedBox(
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                      child: container['isEditable']
+                                          ? TextField(
+                                              focusNode: _focusNodes[index],
+                                              onSubmitted: (value) {
+                                                if (value.trim().isNotEmpty) {
+                                                  setState(() {
+                                                    containers[index]['title'] =
+                                                        value.trim();
+                                                    containers[index]
+                                                        ['isEditable'] = false;
+                                                  });
+                                                }
+                                              },
+                                              onEditingComplete: () {
+                                                if (_focusNodes[index]
+                                                    .hasPrimaryFocus) {
+                                                  _focusNodes[index].unfocus();
+                                                }
+                                              },
+                                              decoration: const InputDecoration(
+                                                hintText: 'Agregar Título',
+                                                border: InputBorder.none,
+                                              ),
+                                              style: const TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                              autofocus: true,
+                                            )
+                                          : Column(
+                                              children: [
+                                                Text(
+                                                  container['title'],
+                                                  style: const TextStyle(
+                                                    fontSize: 25,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ],
                                             ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ],
+                                    ),
+                                    Positioned(
+                                      top: -5,
+                                      right: -5,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          _showDeleteDialog(index);
+                                        },
+                                        child: const Icon(
+                                          Icons.close,
+                                          size: 28,
+                                          color: Color(0XFF12372A),
+                                        ),
                                       ),
+                                    ),
+                                  ],
+                                ),
                               );
                             }),
                           ],
@@ -155,5 +177,20 @@ class _FolderspageState extends State<Folderspage> {
       node.dispose();
     }
     super.dispose();
+  }
+
+  void _showDeleteDialog(int index) {
+    showDialog(
+      context: context,
+      builder: (context) => DeleteMessage(
+        onConfirm: () {
+          setState(() {
+            _focusNodes[index].dispose();
+            _focusNodes.removeAt(index);
+            containers.removeAt(index);
+          });
+        },
+      ),
+    );
   }
 }
