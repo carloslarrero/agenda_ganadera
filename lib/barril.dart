@@ -5,7 +5,7 @@ export 'package:agenda_ganadera/pages/stockPage.dart';
 export 'package:agenda_ganadera/message/editMessage.dart';
 export 'package:agenda_ganadera/message/deleteMessage.dart';
 export 'package:agenda_ganadera/message/animalesMessage.dart';
-export 'package:agenda_ganadera/pages/secondary_pages/tarjaPage.dart';
+export 'package:agenda_ganadera/pages/tertiary_pages/tarjaPage.dart';
 export 'package:agenda_ganadera/message/activityMessage.dart';
 export 'package:flutter/material.dart';
 export 'pages/principalPage.dart';
@@ -19,4 +19,7 @@ export 'package:agenda_ganadera/pages/almacenPage.dart';
 export 'package:agenda_ganadera/style/main_navigation.dart';
 export 'package:agenda_ganadera/message/almacenMessage.dart';
 export 'package:agenda_ganadera/pages/secondary_pages/pesajeContenido.dart';
+export 'package:agenda_ganadera/message/pesajeMessage.dart';
+export 'package:agenda_ganadera/message/categoriaMessage.dart';
+export 'package:agenda_ganadera/pages/tertiary_pages/categoria_pesajePage.dart';
 //hola comentario
