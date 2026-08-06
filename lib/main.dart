@@ -1,3 +1,4 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'barril.dart';
 
 void main() {
@@ -9,10 +10,44 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Agenda Ganadera',
-      home: const MainNavigation(),
+    return RepositoryProvider<AppDatabase>(
+      create: (context) => AppDatabase(),
+      dispose: (database) => database.close(),
+      child: Builder(
+        builder: (context) {
+          final AppDatabase database = context.read<AppDatabase>();
+
+          return MultiRepositoryProvider(
+            providers: [
+              RepositoryProvider<PesajeRepository>(
+                create: (context) => PesajeRepository(database),
+              ),
+              RepositoryProvider<StockRepository>(
+                create: (context) => StockRepository(database),
+              ),
+            ],
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider<PesajeCubit>(
+                  create: (context) => PesajeCubit(
+                    repository: context.read<PesajeRepository>(),
+                  )..observarControles(),
+                ),
+                BlocProvider<StockCubit>(
+                  create: (context) => StockCubit(
+                    repository: context.read<StockRepository>(),
+                  )..observarStock(),
+                ),
+              ],
+              child: const MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Agenda Ganadera',
+                home: MainNavigation(),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
