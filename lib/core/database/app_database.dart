@@ -66,21 +66,71 @@ class StockAnimales extends Table {
       )();
 }
 
+@DataClassName('CarpetaControlData')
+class CarpetasControl extends Table {
+  IntColumn get id => integer().autoIncrement()();
+
+  TextColumn get titulo => text()();
+
+  DateTimeColumn get creadoEn => dateTime().withDefault(
+        currentDateAndTime,
+      )();
+}
+
+@DataClassName('ActividadControlData')
+class ActividadesControl extends Table {
+  IntColumn get id => integer().autoIncrement()();
+
+  IntColumn get carpetaControlId => integer().references(
+        CarpetasControl,
+        #id,
+        onDelete: KeyAction.cascade,
+      )();
+
+  TextColumn get titulo => text()();
+
+  DateTimeColumn get fecha => dateTime()();
+
+  DateTimeColumn get creadoEn => dateTime().withDefault(
+        currentDateAndTime,
+      )();
+}
+
+@DataClassName('TarjaControlData')
+class TarjasControl extends Table {
+  IntColumn get id => integer().autoIncrement()();
+
+  IntColumn get actividadControlId => integer().references(
+        ActividadesControl,
+        #id,
+        onDelete: KeyAction.cascade,
+      )();
+
+  TextColumn get tipo => text()();
+
+  IntColumn get cantidad => integer()();
+
+  DateTimeColumn get creadoEn => dateTime().withDefault(
+        currentDateAndTime,
+      )();
+}
+
 @DriftDatabase(
   tables: [
     ControlesPesaje,
     CategoriasPesaje,
     AnimalesPesaje,
     StockAnimales,
+    CarpetasControl,
+    ActividadesControl,
+    TarjasControl
   ],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
-  /// Antes era 1.
-  /// Ahora es 2 porque agregamos la tabla StockAnimales.
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration {
@@ -95,6 +145,17 @@ class AppDatabase extends _$AppDatabase {
       ) async {
         if (from < 2) {
           await migrator.createTable(stockAnimales);
+        }
+
+        if (from < 3) {
+          await migrator.createTable(carpetasControl);
+        }
+
+        if (from < 4) {
+          await migrator.createTable(actividadesControl);
+        }
+        if (from < 5) {
+          await migrator.createTable(tarjasControl);
         }
       },
     );

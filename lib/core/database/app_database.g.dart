@@ -1136,6 +1136,836 @@ class StockAnimalesCompanion extends UpdateCompanion<StockAnimalData> {
   }
 }
 
+class $CarpetasControlTable extends CarpetasControl
+    with TableInfo<$CarpetasControlTable, CarpetaControlData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CarpetasControlTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _tituloMeta = const VerificationMeta('titulo');
+  @override
+  late final GeneratedColumn<String> titulo = GeneratedColumn<String>(
+      'titulo', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _creadoEnMeta =
+      const VerificationMeta('creadoEn');
+  @override
+  late final GeneratedColumn<DateTime> creadoEn = GeneratedColumn<DateTime>(
+      'creado_en', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [id, titulo, creadoEn];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'carpetas_control';
+  @override
+  VerificationContext validateIntegrity(Insertable<CarpetaControlData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('titulo')) {
+      context.handle(_tituloMeta,
+          titulo.isAcceptableOrUnknown(data['titulo']!, _tituloMeta));
+    } else if (isInserting) {
+      context.missing(_tituloMeta);
+    }
+    if (data.containsKey('creado_en')) {
+      context.handle(_creadoEnMeta,
+          creadoEn.isAcceptableOrUnknown(data['creado_en']!, _creadoEnMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  CarpetaControlData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CarpetaControlData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      titulo: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}titulo'])!,
+      creadoEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}creado_en'])!,
+    );
+  }
+
+  @override
+  $CarpetasControlTable createAlias(String alias) {
+    return $CarpetasControlTable(attachedDatabase, alias);
+  }
+}
+
+class CarpetaControlData extends DataClass
+    implements Insertable<CarpetaControlData> {
+  final int id;
+  final String titulo;
+  final DateTime creadoEn;
+  const CarpetaControlData(
+      {required this.id, required this.titulo, required this.creadoEn});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['titulo'] = Variable<String>(titulo);
+    map['creado_en'] = Variable<DateTime>(creadoEn);
+    return map;
+  }
+
+  CarpetasControlCompanion toCompanion(bool nullToAbsent) {
+    return CarpetasControlCompanion(
+      id: Value(id),
+      titulo: Value(titulo),
+      creadoEn: Value(creadoEn),
+    );
+  }
+
+  factory CarpetaControlData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return CarpetaControlData(
+      id: serializer.fromJson<int>(json['id']),
+      titulo: serializer.fromJson<String>(json['titulo']),
+      creadoEn: serializer.fromJson<DateTime>(json['creadoEn']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'titulo': serializer.toJson<String>(titulo),
+      'creadoEn': serializer.toJson<DateTime>(creadoEn),
+    };
+  }
+
+  CarpetaControlData copyWith({int? id, String? titulo, DateTime? creadoEn}) =>
+      CarpetaControlData(
+        id: id ?? this.id,
+        titulo: titulo ?? this.titulo,
+        creadoEn: creadoEn ?? this.creadoEn,
+      );
+  CarpetaControlData copyWithCompanion(CarpetasControlCompanion data) {
+    return CarpetaControlData(
+      id: data.id.present ? data.id.value : this.id,
+      titulo: data.titulo.present ? data.titulo.value : this.titulo,
+      creadoEn: data.creadoEn.present ? data.creadoEn.value : this.creadoEn,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CarpetaControlData(')
+          ..write('id: $id, ')
+          ..write('titulo: $titulo, ')
+          ..write('creadoEn: $creadoEn')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, titulo, creadoEn);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CarpetaControlData &&
+          other.id == this.id &&
+          other.titulo == this.titulo &&
+          other.creadoEn == this.creadoEn);
+}
+
+class CarpetasControlCompanion extends UpdateCompanion<CarpetaControlData> {
+  final Value<int> id;
+  final Value<String> titulo;
+  final Value<DateTime> creadoEn;
+  const CarpetasControlCompanion({
+    this.id = const Value.absent(),
+    this.titulo = const Value.absent(),
+    this.creadoEn = const Value.absent(),
+  });
+  CarpetasControlCompanion.insert({
+    this.id = const Value.absent(),
+    required String titulo,
+    this.creadoEn = const Value.absent(),
+  }) : titulo = Value(titulo);
+  static Insertable<CarpetaControlData> custom({
+    Expression<int>? id,
+    Expression<String>? titulo,
+    Expression<DateTime>? creadoEn,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (titulo != null) 'titulo': titulo,
+      if (creadoEn != null) 'creado_en': creadoEn,
+    });
+  }
+
+  CarpetasControlCompanion copyWith(
+      {Value<int>? id, Value<String>? titulo, Value<DateTime>? creadoEn}) {
+    return CarpetasControlCompanion(
+      id: id ?? this.id,
+      titulo: titulo ?? this.titulo,
+      creadoEn: creadoEn ?? this.creadoEn,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (titulo.present) {
+      map['titulo'] = Variable<String>(titulo.value);
+    }
+    if (creadoEn.present) {
+      map['creado_en'] = Variable<DateTime>(creadoEn.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CarpetasControlCompanion(')
+          ..write('id: $id, ')
+          ..write('titulo: $titulo, ')
+          ..write('creadoEn: $creadoEn')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ActividadesControlTable extends ActividadesControl
+    with TableInfo<$ActividadesControlTable, ActividadControlData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ActividadesControlTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _carpetaControlIdMeta =
+      const VerificationMeta('carpetaControlId');
+  @override
+  late final GeneratedColumn<int> carpetaControlId = GeneratedColumn<int>(
+      'carpeta_control_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES carpetas_control (id) ON DELETE CASCADE'));
+  static const VerificationMeta _tituloMeta = const VerificationMeta('titulo');
+  @override
+  late final GeneratedColumn<String> titulo = GeneratedColumn<String>(
+      'titulo', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _fechaMeta = const VerificationMeta('fecha');
+  @override
+  late final GeneratedColumn<DateTime> fecha = GeneratedColumn<DateTime>(
+      'fecha', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _creadoEnMeta =
+      const VerificationMeta('creadoEn');
+  @override
+  late final GeneratedColumn<DateTime> creadoEn = GeneratedColumn<DateTime>(
+      'creado_en', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, carpetaControlId, titulo, fecha, creadoEn];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'actividades_control';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<ActividadControlData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('carpeta_control_id')) {
+      context.handle(
+          _carpetaControlIdMeta,
+          carpetaControlId.isAcceptableOrUnknown(
+              data['carpeta_control_id']!, _carpetaControlIdMeta));
+    } else if (isInserting) {
+      context.missing(_carpetaControlIdMeta);
+    }
+    if (data.containsKey('titulo')) {
+      context.handle(_tituloMeta,
+          titulo.isAcceptableOrUnknown(data['titulo']!, _tituloMeta));
+    } else if (isInserting) {
+      context.missing(_tituloMeta);
+    }
+    if (data.containsKey('fecha')) {
+      context.handle(
+          _fechaMeta, fecha.isAcceptableOrUnknown(data['fecha']!, _fechaMeta));
+    } else if (isInserting) {
+      context.missing(_fechaMeta);
+    }
+    if (data.containsKey('creado_en')) {
+      context.handle(_creadoEnMeta,
+          creadoEn.isAcceptableOrUnknown(data['creado_en']!, _creadoEnMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ActividadControlData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ActividadControlData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      carpetaControlId: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}carpeta_control_id'])!,
+      titulo: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}titulo'])!,
+      fecha: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha'])!,
+      creadoEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}creado_en'])!,
+    );
+  }
+
+  @override
+  $ActividadesControlTable createAlias(String alias) {
+    return $ActividadesControlTable(attachedDatabase, alias);
+  }
+}
+
+class ActividadControlData extends DataClass
+    implements Insertable<ActividadControlData> {
+  final int id;
+  final int carpetaControlId;
+  final String titulo;
+  final DateTime fecha;
+  final DateTime creadoEn;
+  const ActividadControlData(
+      {required this.id,
+      required this.carpetaControlId,
+      required this.titulo,
+      required this.fecha,
+      required this.creadoEn});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['carpeta_control_id'] = Variable<int>(carpetaControlId);
+    map['titulo'] = Variable<String>(titulo);
+    map['fecha'] = Variable<DateTime>(fecha);
+    map['creado_en'] = Variable<DateTime>(creadoEn);
+    return map;
+  }
+
+  ActividadesControlCompanion toCompanion(bool nullToAbsent) {
+    return ActividadesControlCompanion(
+      id: Value(id),
+      carpetaControlId: Value(carpetaControlId),
+      titulo: Value(titulo),
+      fecha: Value(fecha),
+      creadoEn: Value(creadoEn),
+    );
+  }
+
+  factory ActividadControlData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ActividadControlData(
+      id: serializer.fromJson<int>(json['id']),
+      carpetaControlId: serializer.fromJson<int>(json['carpetaControlId']),
+      titulo: serializer.fromJson<String>(json['titulo']),
+      fecha: serializer.fromJson<DateTime>(json['fecha']),
+      creadoEn: serializer.fromJson<DateTime>(json['creadoEn']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'carpetaControlId': serializer.toJson<int>(carpetaControlId),
+      'titulo': serializer.toJson<String>(titulo),
+      'fecha': serializer.toJson<DateTime>(fecha),
+      'creadoEn': serializer.toJson<DateTime>(creadoEn),
+    };
+  }
+
+  ActividadControlData copyWith(
+          {int? id,
+          int? carpetaControlId,
+          String? titulo,
+          DateTime? fecha,
+          DateTime? creadoEn}) =>
+      ActividadControlData(
+        id: id ?? this.id,
+        carpetaControlId: carpetaControlId ?? this.carpetaControlId,
+        titulo: titulo ?? this.titulo,
+        fecha: fecha ?? this.fecha,
+        creadoEn: creadoEn ?? this.creadoEn,
+      );
+  ActividadControlData copyWithCompanion(ActividadesControlCompanion data) {
+    return ActividadControlData(
+      id: data.id.present ? data.id.value : this.id,
+      carpetaControlId: data.carpetaControlId.present
+          ? data.carpetaControlId.value
+          : this.carpetaControlId,
+      titulo: data.titulo.present ? data.titulo.value : this.titulo,
+      fecha: data.fecha.present ? data.fecha.value : this.fecha,
+      creadoEn: data.creadoEn.present ? data.creadoEn.value : this.creadoEn,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ActividadControlData(')
+          ..write('id: $id, ')
+          ..write('carpetaControlId: $carpetaControlId, ')
+          ..write('titulo: $titulo, ')
+          ..write('fecha: $fecha, ')
+          ..write('creadoEn: $creadoEn')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, carpetaControlId, titulo, fecha, creadoEn);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ActividadControlData &&
+          other.id == this.id &&
+          other.carpetaControlId == this.carpetaControlId &&
+          other.titulo == this.titulo &&
+          other.fecha == this.fecha &&
+          other.creadoEn == this.creadoEn);
+}
+
+class ActividadesControlCompanion
+    extends UpdateCompanion<ActividadControlData> {
+  final Value<int> id;
+  final Value<int> carpetaControlId;
+  final Value<String> titulo;
+  final Value<DateTime> fecha;
+  final Value<DateTime> creadoEn;
+  const ActividadesControlCompanion({
+    this.id = const Value.absent(),
+    this.carpetaControlId = const Value.absent(),
+    this.titulo = const Value.absent(),
+    this.fecha = const Value.absent(),
+    this.creadoEn = const Value.absent(),
+  });
+  ActividadesControlCompanion.insert({
+    this.id = const Value.absent(),
+    required int carpetaControlId,
+    required String titulo,
+    required DateTime fecha,
+    this.creadoEn = const Value.absent(),
+  })  : carpetaControlId = Value(carpetaControlId),
+        titulo = Value(titulo),
+        fecha = Value(fecha);
+  static Insertable<ActividadControlData> custom({
+    Expression<int>? id,
+    Expression<int>? carpetaControlId,
+    Expression<String>? titulo,
+    Expression<DateTime>? fecha,
+    Expression<DateTime>? creadoEn,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (carpetaControlId != null) 'carpeta_control_id': carpetaControlId,
+      if (titulo != null) 'titulo': titulo,
+      if (fecha != null) 'fecha': fecha,
+      if (creadoEn != null) 'creado_en': creadoEn,
+    });
+  }
+
+  ActividadesControlCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? carpetaControlId,
+      Value<String>? titulo,
+      Value<DateTime>? fecha,
+      Value<DateTime>? creadoEn}) {
+    return ActividadesControlCompanion(
+      id: id ?? this.id,
+      carpetaControlId: carpetaControlId ?? this.carpetaControlId,
+      titulo: titulo ?? this.titulo,
+      fecha: fecha ?? this.fecha,
+      creadoEn: creadoEn ?? this.creadoEn,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (carpetaControlId.present) {
+      map['carpeta_control_id'] = Variable<int>(carpetaControlId.value);
+    }
+    if (titulo.present) {
+      map['titulo'] = Variable<String>(titulo.value);
+    }
+    if (fecha.present) {
+      map['fecha'] = Variable<DateTime>(fecha.value);
+    }
+    if (creadoEn.present) {
+      map['creado_en'] = Variable<DateTime>(creadoEn.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ActividadesControlCompanion(')
+          ..write('id: $id, ')
+          ..write('carpetaControlId: $carpetaControlId, ')
+          ..write('titulo: $titulo, ')
+          ..write('fecha: $fecha, ')
+          ..write('creadoEn: $creadoEn')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $TarjasControlTable extends TarjasControl
+    with TableInfo<$TarjasControlTable, TarjaControlData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TarjasControlTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _actividadControlIdMeta =
+      const VerificationMeta('actividadControlId');
+  @override
+  late final GeneratedColumn<int> actividadControlId = GeneratedColumn<int>(
+      'actividad_control_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES actividades_control (id) ON DELETE CASCADE'));
+  static const VerificationMeta _tipoMeta = const VerificationMeta('tipo');
+  @override
+  late final GeneratedColumn<String> tipo = GeneratedColumn<String>(
+      'tipo', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _cantidadMeta =
+      const VerificationMeta('cantidad');
+  @override
+  late final GeneratedColumn<int> cantidad = GeneratedColumn<int>(
+      'cantidad', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _creadoEnMeta =
+      const VerificationMeta('creadoEn');
+  @override
+  late final GeneratedColumn<DateTime> creadoEn = GeneratedColumn<DateTime>(
+      'creado_en', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, actividadControlId, tipo, cantidad, creadoEn];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'tarjas_control';
+  @override
+  VerificationContext validateIntegrity(Insertable<TarjaControlData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('actividad_control_id')) {
+      context.handle(
+          _actividadControlIdMeta,
+          actividadControlId.isAcceptableOrUnknown(
+              data['actividad_control_id']!, _actividadControlIdMeta));
+    } else if (isInserting) {
+      context.missing(_actividadControlIdMeta);
+    }
+    if (data.containsKey('tipo')) {
+      context.handle(
+          _tipoMeta, tipo.isAcceptableOrUnknown(data['tipo']!, _tipoMeta));
+    } else if (isInserting) {
+      context.missing(_tipoMeta);
+    }
+    if (data.containsKey('cantidad')) {
+      context.handle(_cantidadMeta,
+          cantidad.isAcceptableOrUnknown(data['cantidad']!, _cantidadMeta));
+    } else if (isInserting) {
+      context.missing(_cantidadMeta);
+    }
+    if (data.containsKey('creado_en')) {
+      context.handle(_creadoEnMeta,
+          creadoEn.isAcceptableOrUnknown(data['creado_en']!, _creadoEnMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  TarjaControlData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TarjaControlData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      actividadControlId: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}actividad_control_id'])!,
+      tipo: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}tipo'])!,
+      cantidad: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}cantidad'])!,
+      creadoEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}creado_en'])!,
+    );
+  }
+
+  @override
+  $TarjasControlTable createAlias(String alias) {
+    return $TarjasControlTable(attachedDatabase, alias);
+  }
+}
+
+class TarjaControlData extends DataClass
+    implements Insertable<TarjaControlData> {
+  final int id;
+  final int actividadControlId;
+  final String tipo;
+  final int cantidad;
+  final DateTime creadoEn;
+  const TarjaControlData(
+      {required this.id,
+      required this.actividadControlId,
+      required this.tipo,
+      required this.cantidad,
+      required this.creadoEn});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['actividad_control_id'] = Variable<int>(actividadControlId);
+    map['tipo'] = Variable<String>(tipo);
+    map['cantidad'] = Variable<int>(cantidad);
+    map['creado_en'] = Variable<DateTime>(creadoEn);
+    return map;
+  }
+
+  TarjasControlCompanion toCompanion(bool nullToAbsent) {
+    return TarjasControlCompanion(
+      id: Value(id),
+      actividadControlId: Value(actividadControlId),
+      tipo: Value(tipo),
+      cantidad: Value(cantidad),
+      creadoEn: Value(creadoEn),
+    );
+  }
+
+  factory TarjaControlData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TarjaControlData(
+      id: serializer.fromJson<int>(json['id']),
+      actividadControlId: serializer.fromJson<int>(json['actividadControlId']),
+      tipo: serializer.fromJson<String>(json['tipo']),
+      cantidad: serializer.fromJson<int>(json['cantidad']),
+      creadoEn: serializer.fromJson<DateTime>(json['creadoEn']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'actividadControlId': serializer.toJson<int>(actividadControlId),
+      'tipo': serializer.toJson<String>(tipo),
+      'cantidad': serializer.toJson<int>(cantidad),
+      'creadoEn': serializer.toJson<DateTime>(creadoEn),
+    };
+  }
+
+  TarjaControlData copyWith(
+          {int? id,
+          int? actividadControlId,
+          String? tipo,
+          int? cantidad,
+          DateTime? creadoEn}) =>
+      TarjaControlData(
+        id: id ?? this.id,
+        actividadControlId: actividadControlId ?? this.actividadControlId,
+        tipo: tipo ?? this.tipo,
+        cantidad: cantidad ?? this.cantidad,
+        creadoEn: creadoEn ?? this.creadoEn,
+      );
+  TarjaControlData copyWithCompanion(TarjasControlCompanion data) {
+    return TarjaControlData(
+      id: data.id.present ? data.id.value : this.id,
+      actividadControlId: data.actividadControlId.present
+          ? data.actividadControlId.value
+          : this.actividadControlId,
+      tipo: data.tipo.present ? data.tipo.value : this.tipo,
+      cantidad: data.cantidad.present ? data.cantidad.value : this.cantidad,
+      creadoEn: data.creadoEn.present ? data.creadoEn.value : this.creadoEn,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TarjaControlData(')
+          ..write('id: $id, ')
+          ..write('actividadControlId: $actividadControlId, ')
+          ..write('tipo: $tipo, ')
+          ..write('cantidad: $cantidad, ')
+          ..write('creadoEn: $creadoEn')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, actividadControlId, tipo, cantidad, creadoEn);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TarjaControlData &&
+          other.id == this.id &&
+          other.actividadControlId == this.actividadControlId &&
+          other.tipo == this.tipo &&
+          other.cantidad == this.cantidad &&
+          other.creadoEn == this.creadoEn);
+}
+
+class TarjasControlCompanion extends UpdateCompanion<TarjaControlData> {
+  final Value<int> id;
+  final Value<int> actividadControlId;
+  final Value<String> tipo;
+  final Value<int> cantidad;
+  final Value<DateTime> creadoEn;
+  const TarjasControlCompanion({
+    this.id = const Value.absent(),
+    this.actividadControlId = const Value.absent(),
+    this.tipo = const Value.absent(),
+    this.cantidad = const Value.absent(),
+    this.creadoEn = const Value.absent(),
+  });
+  TarjasControlCompanion.insert({
+    this.id = const Value.absent(),
+    required int actividadControlId,
+    required String tipo,
+    required int cantidad,
+    this.creadoEn = const Value.absent(),
+  })  : actividadControlId = Value(actividadControlId),
+        tipo = Value(tipo),
+        cantidad = Value(cantidad);
+  static Insertable<TarjaControlData> custom({
+    Expression<int>? id,
+    Expression<int>? actividadControlId,
+    Expression<String>? tipo,
+    Expression<int>? cantidad,
+    Expression<DateTime>? creadoEn,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (actividadControlId != null)
+        'actividad_control_id': actividadControlId,
+      if (tipo != null) 'tipo': tipo,
+      if (cantidad != null) 'cantidad': cantidad,
+      if (creadoEn != null) 'creado_en': creadoEn,
+    });
+  }
+
+  TarjasControlCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? actividadControlId,
+      Value<String>? tipo,
+      Value<int>? cantidad,
+      Value<DateTime>? creadoEn}) {
+    return TarjasControlCompanion(
+      id: id ?? this.id,
+      actividadControlId: actividadControlId ?? this.actividadControlId,
+      tipo: tipo ?? this.tipo,
+      cantidad: cantidad ?? this.cantidad,
+      creadoEn: creadoEn ?? this.creadoEn,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (actividadControlId.present) {
+      map['actividad_control_id'] = Variable<int>(actividadControlId.value);
+    }
+    if (tipo.present) {
+      map['tipo'] = Variable<String>(tipo.value);
+    }
+    if (cantidad.present) {
+      map['cantidad'] = Variable<int>(cantidad.value);
+    }
+    if (creadoEn.present) {
+      map['creado_en'] = Variable<DateTime>(creadoEn.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TarjasControlCompanion(')
+          ..write('id: $id, ')
+          ..write('actividadControlId: $actividadControlId, ')
+          ..write('tipo: $tipo, ')
+          ..write('cantidad: $cantidad, ')
+          ..write('creadoEn: $creadoEn')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -1145,12 +1975,24 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $CategoriasPesajeTable(this);
   late final $AnimalesPesajeTable animalesPesaje = $AnimalesPesajeTable(this);
   late final $StockAnimalesTable stockAnimales = $StockAnimalesTable(this);
+  late final $CarpetasControlTable carpetasControl =
+      $CarpetasControlTable(this);
+  late final $ActividadesControlTable actividadesControl =
+      $ActividadesControlTable(this);
+  late final $TarjasControlTable tarjasControl = $TarjasControlTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [controlesPesaje, categoriasPesaje, animalesPesaje, stockAnimales];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+        controlesPesaje,
+        categoriasPesaje,
+        animalesPesaje,
+        stockAnimales,
+        carpetasControl,
+        actividadesControl,
+        tarjasControl
+      ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules(
         [
@@ -1166,6 +2008,20 @@ abstract class _$AppDatabase extends GeneratedDatabase {
                 limitUpdateKind: UpdateKind.delete),
             result: [
               TableUpdate('animales_pesaje', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('carpetas_control',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('actividades_control', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('actividades_control',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('tarjas_control', kind: UpdateKind.delete),
             ],
           ),
         ],
@@ -2189,6 +3045,856 @@ typedef $$StockAnimalesTableProcessedTableManager = ProcessedTableManager<
     ),
     StockAnimalData,
     PrefetchHooks Function()>;
+typedef $$CarpetasControlTableCreateCompanionBuilder = CarpetasControlCompanion
+    Function({
+  Value<int> id,
+  required String titulo,
+  Value<DateTime> creadoEn,
+});
+typedef $$CarpetasControlTableUpdateCompanionBuilder = CarpetasControlCompanion
+    Function({
+  Value<int> id,
+  Value<String> titulo,
+  Value<DateTime> creadoEn,
+});
+
+final class $$CarpetasControlTableReferences extends BaseReferences<
+    _$AppDatabase, $CarpetasControlTable, CarpetaControlData> {
+  $$CarpetasControlTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$ActividadesControlTable,
+      List<ActividadControlData>> _actividadesControlRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.actividadesControl,
+          aliasName: $_aliasNameGenerator(
+              db.carpetasControl.id, db.actividadesControl.carpetaControlId));
+
+  $$ActividadesControlTableProcessedTableManager get actividadesControlRefs {
+    final manager = $$ActividadesControlTableTableManager(
+            $_db, $_db.actividadesControl)
+        .filter(
+            (f) => f.carpetaControlId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache =
+        $_typedResult.readTableOrNull(_actividadesControlRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$CarpetasControlTableFilterComposer
+    extends Composer<_$AppDatabase, $CarpetasControlTable> {
+  $$CarpetasControlTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get titulo => $composableBuilder(
+      column: $table.titulo, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get creadoEn => $composableBuilder(
+      column: $table.creadoEn, builder: (column) => ColumnFilters(column));
+
+  Expression<bool> actividadesControlRefs(
+      Expression<bool> Function($$ActividadesControlTableFilterComposer f) f) {
+    final $$ActividadesControlTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.actividadesControl,
+        getReferencedColumn: (t) => t.carpetaControlId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ActividadesControlTableFilterComposer(
+              $db: $db,
+              $table: $db.actividadesControl,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$CarpetasControlTableOrderingComposer
+    extends Composer<_$AppDatabase, $CarpetasControlTable> {
+  $$CarpetasControlTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get titulo => $composableBuilder(
+      column: $table.titulo, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get creadoEn => $composableBuilder(
+      column: $table.creadoEn, builder: (column) => ColumnOrderings(column));
+}
+
+class $$CarpetasControlTableAnnotationComposer
+    extends Composer<_$AppDatabase, $CarpetasControlTable> {
+  $$CarpetasControlTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get titulo =>
+      $composableBuilder(column: $table.titulo, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get creadoEn =>
+      $composableBuilder(column: $table.creadoEn, builder: (column) => column);
+
+  Expression<T> actividadesControlRefs<T extends Object>(
+      Expression<T> Function($$ActividadesControlTableAnnotationComposer a) f) {
+    final $$ActividadesControlTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $db.actividadesControl,
+            getReferencedColumn: (t) => t.carpetaControlId,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$ActividadesControlTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.actividadesControl,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return f(composer);
+  }
+}
+
+class $$CarpetasControlTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $CarpetasControlTable,
+    CarpetaControlData,
+    $$CarpetasControlTableFilterComposer,
+    $$CarpetasControlTableOrderingComposer,
+    $$CarpetasControlTableAnnotationComposer,
+    $$CarpetasControlTableCreateCompanionBuilder,
+    $$CarpetasControlTableUpdateCompanionBuilder,
+    (CarpetaControlData, $$CarpetasControlTableReferences),
+    CarpetaControlData,
+    PrefetchHooks Function({bool actividadesControlRefs})> {
+  $$CarpetasControlTableTableManager(
+      _$AppDatabase db, $CarpetasControlTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CarpetasControlTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CarpetasControlTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$CarpetasControlTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> titulo = const Value.absent(),
+            Value<DateTime> creadoEn = const Value.absent(),
+          }) =>
+              CarpetasControlCompanion(
+            id: id,
+            titulo: titulo,
+            creadoEn: creadoEn,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String titulo,
+            Value<DateTime> creadoEn = const Value.absent(),
+          }) =>
+              CarpetasControlCompanion.insert(
+            id: id,
+            titulo: titulo,
+            creadoEn: creadoEn,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$CarpetasControlTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({actividadesControlRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (actividadesControlRefs) db.actividadesControl
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (actividadesControlRefs)
+                    await $_getPrefetchedData<CarpetaControlData,
+                            $CarpetasControlTable, ActividadControlData>(
+                        currentTable: table,
+                        referencedTable: $$CarpetasControlTableReferences
+                            ._actividadesControlRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$CarpetasControlTableReferences(db, table, p0)
+                                .actividadesControlRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.carpetaControlId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$CarpetasControlTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $CarpetasControlTable,
+    CarpetaControlData,
+    $$CarpetasControlTableFilterComposer,
+    $$CarpetasControlTableOrderingComposer,
+    $$CarpetasControlTableAnnotationComposer,
+    $$CarpetasControlTableCreateCompanionBuilder,
+    $$CarpetasControlTableUpdateCompanionBuilder,
+    (CarpetaControlData, $$CarpetasControlTableReferences),
+    CarpetaControlData,
+    PrefetchHooks Function({bool actividadesControlRefs})>;
+typedef $$ActividadesControlTableCreateCompanionBuilder
+    = ActividadesControlCompanion Function({
+  Value<int> id,
+  required int carpetaControlId,
+  required String titulo,
+  required DateTime fecha,
+  Value<DateTime> creadoEn,
+});
+typedef $$ActividadesControlTableUpdateCompanionBuilder
+    = ActividadesControlCompanion Function({
+  Value<int> id,
+  Value<int> carpetaControlId,
+  Value<String> titulo,
+  Value<DateTime> fecha,
+  Value<DateTime> creadoEn,
+});
+
+final class $$ActividadesControlTableReferences extends BaseReferences<
+    _$AppDatabase, $ActividadesControlTable, ActividadControlData> {
+  $$ActividadesControlTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $CarpetasControlTable _carpetaControlIdTable(_$AppDatabase db) =>
+      db.carpetasControl.createAlias($_aliasNameGenerator(
+          db.actividadesControl.carpetaControlId, db.carpetasControl.id));
+
+  $$CarpetasControlTableProcessedTableManager get carpetaControlId {
+    final $_column = $_itemColumn<int>('carpeta_control_id')!;
+
+    final manager =
+        $$CarpetasControlTableTableManager($_db, $_db.carpetasControl)
+            .filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_carpetaControlIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static MultiTypedResultKey<$TarjasControlTable, List<TarjaControlData>>
+      _tarjasControlRefsTable(_$AppDatabase db) =>
+          MultiTypedResultKey.fromTable(db.tarjasControl,
+              aliasName: $_aliasNameGenerator(db.actividadesControl.id,
+                  db.tarjasControl.actividadControlId));
+
+  $$TarjasControlTableProcessedTableManager get tarjasControlRefs {
+    final manager = $$TarjasControlTableTableManager($_db, $_db.tarjasControl)
+        .filter(
+            (f) => f.actividadControlId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_tarjasControlRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$ActividadesControlTableFilterComposer
+    extends Composer<_$AppDatabase, $ActividadesControlTable> {
+  $$ActividadesControlTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get titulo => $composableBuilder(
+      column: $table.titulo, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fecha => $composableBuilder(
+      column: $table.fecha, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get creadoEn => $composableBuilder(
+      column: $table.creadoEn, builder: (column) => ColumnFilters(column));
+
+  $$CarpetasControlTableFilterComposer get carpetaControlId {
+    final $$CarpetasControlTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.carpetaControlId,
+        referencedTable: $db.carpetasControl,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CarpetasControlTableFilterComposer(
+              $db: $db,
+              $table: $db.carpetasControl,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<bool> tarjasControlRefs(
+      Expression<bool> Function($$TarjasControlTableFilterComposer f) f) {
+    final $$TarjasControlTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.tarjasControl,
+        getReferencedColumn: (t) => t.actividadControlId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$TarjasControlTableFilterComposer(
+              $db: $db,
+              $table: $db.tarjasControl,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$ActividadesControlTableOrderingComposer
+    extends Composer<_$AppDatabase, $ActividadesControlTable> {
+  $$ActividadesControlTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get titulo => $composableBuilder(
+      column: $table.titulo, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fecha => $composableBuilder(
+      column: $table.fecha, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get creadoEn => $composableBuilder(
+      column: $table.creadoEn, builder: (column) => ColumnOrderings(column));
+
+  $$CarpetasControlTableOrderingComposer get carpetaControlId {
+    final $$CarpetasControlTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.carpetaControlId,
+        referencedTable: $db.carpetasControl,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CarpetasControlTableOrderingComposer(
+              $db: $db,
+              $table: $db.carpetasControl,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$ActividadesControlTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ActividadesControlTable> {
+  $$ActividadesControlTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get titulo =>
+      $composableBuilder(column: $table.titulo, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fecha =>
+      $composableBuilder(column: $table.fecha, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get creadoEn =>
+      $composableBuilder(column: $table.creadoEn, builder: (column) => column);
+
+  $$CarpetasControlTableAnnotationComposer get carpetaControlId {
+    final $$CarpetasControlTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.carpetaControlId,
+        referencedTable: $db.carpetasControl,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CarpetasControlTableAnnotationComposer(
+              $db: $db,
+              $table: $db.carpetasControl,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<T> tarjasControlRefs<T extends Object>(
+      Expression<T> Function($$TarjasControlTableAnnotationComposer a) f) {
+    final $$TarjasControlTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.tarjasControl,
+        getReferencedColumn: (t) => t.actividadControlId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$TarjasControlTableAnnotationComposer(
+              $db: $db,
+              $table: $db.tarjasControl,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$ActividadesControlTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $ActividadesControlTable,
+    ActividadControlData,
+    $$ActividadesControlTableFilterComposer,
+    $$ActividadesControlTableOrderingComposer,
+    $$ActividadesControlTableAnnotationComposer,
+    $$ActividadesControlTableCreateCompanionBuilder,
+    $$ActividadesControlTableUpdateCompanionBuilder,
+    (ActividadControlData, $$ActividadesControlTableReferences),
+    ActividadControlData,
+    PrefetchHooks Function({bool carpetaControlId, bool tarjasControlRefs})> {
+  $$ActividadesControlTableTableManager(
+      _$AppDatabase db, $ActividadesControlTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ActividadesControlTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ActividadesControlTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ActividadesControlTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int> carpetaControlId = const Value.absent(),
+            Value<String> titulo = const Value.absent(),
+            Value<DateTime> fecha = const Value.absent(),
+            Value<DateTime> creadoEn = const Value.absent(),
+          }) =>
+              ActividadesControlCompanion(
+            id: id,
+            carpetaControlId: carpetaControlId,
+            titulo: titulo,
+            fecha: fecha,
+            creadoEn: creadoEn,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required int carpetaControlId,
+            required String titulo,
+            required DateTime fecha,
+            Value<DateTime> creadoEn = const Value.absent(),
+          }) =>
+              ActividadesControlCompanion.insert(
+            id: id,
+            carpetaControlId: carpetaControlId,
+            titulo: titulo,
+            fecha: fecha,
+            creadoEn: creadoEn,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$ActividadesControlTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: (
+              {carpetaControlId = false, tarjasControlRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (tarjasControlRefs) db.tarjasControl
+              ],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (carpetaControlId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.carpetaControlId,
+                    referencedTable: $$ActividadesControlTableReferences
+                        ._carpetaControlIdTable(db),
+                    referencedColumn: $$ActividadesControlTableReferences
+                        ._carpetaControlIdTable(db)
+                        .id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (tarjasControlRefs)
+                    await $_getPrefetchedData<ActividadControlData,
+                            $ActividadesControlTable, TarjaControlData>(
+                        currentTable: table,
+                        referencedTable: $$ActividadesControlTableReferences
+                            ._tarjasControlRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$ActividadesControlTableReferences(db, table, p0)
+                                .tarjasControlRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.actividadControlId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$ActividadesControlTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $ActividadesControlTable,
+    ActividadControlData,
+    $$ActividadesControlTableFilterComposer,
+    $$ActividadesControlTableOrderingComposer,
+    $$ActividadesControlTableAnnotationComposer,
+    $$ActividadesControlTableCreateCompanionBuilder,
+    $$ActividadesControlTableUpdateCompanionBuilder,
+    (ActividadControlData, $$ActividadesControlTableReferences),
+    ActividadControlData,
+    PrefetchHooks Function({bool carpetaControlId, bool tarjasControlRefs})>;
+typedef $$TarjasControlTableCreateCompanionBuilder = TarjasControlCompanion
+    Function({
+  Value<int> id,
+  required int actividadControlId,
+  required String tipo,
+  required int cantidad,
+  Value<DateTime> creadoEn,
+});
+typedef $$TarjasControlTableUpdateCompanionBuilder = TarjasControlCompanion
+    Function({
+  Value<int> id,
+  Value<int> actividadControlId,
+  Value<String> tipo,
+  Value<int> cantidad,
+  Value<DateTime> creadoEn,
+});
+
+final class $$TarjasControlTableReferences extends BaseReferences<_$AppDatabase,
+    $TarjasControlTable, TarjaControlData> {
+  $$TarjasControlTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $ActividadesControlTable _actividadControlIdTable(_$AppDatabase db) =>
+      db.actividadesControl.createAlias($_aliasNameGenerator(
+          db.tarjasControl.actividadControlId, db.actividadesControl.id));
+
+  $$ActividadesControlTableProcessedTableManager get actividadControlId {
+    final $_column = $_itemColumn<int>('actividad_control_id')!;
+
+    final manager =
+        $$ActividadesControlTableTableManager($_db, $_db.actividadesControl)
+            .filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_actividadControlIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$TarjasControlTableFilterComposer
+    extends Composer<_$AppDatabase, $TarjasControlTable> {
+  $$TarjasControlTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get tipo => $composableBuilder(
+      column: $table.tipo, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get cantidad => $composableBuilder(
+      column: $table.cantidad, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get creadoEn => $composableBuilder(
+      column: $table.creadoEn, builder: (column) => ColumnFilters(column));
+
+  $$ActividadesControlTableFilterComposer get actividadControlId {
+    final $$ActividadesControlTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.actividadControlId,
+        referencedTable: $db.actividadesControl,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ActividadesControlTableFilterComposer(
+              $db: $db,
+              $table: $db.actividadesControl,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$TarjasControlTableOrderingComposer
+    extends Composer<_$AppDatabase, $TarjasControlTable> {
+  $$TarjasControlTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get tipo => $composableBuilder(
+      column: $table.tipo, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get cantidad => $composableBuilder(
+      column: $table.cantidad, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get creadoEn => $composableBuilder(
+      column: $table.creadoEn, builder: (column) => ColumnOrderings(column));
+
+  $$ActividadesControlTableOrderingComposer get actividadControlId {
+    final $$ActividadesControlTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.actividadControlId,
+        referencedTable: $db.actividadesControl,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ActividadesControlTableOrderingComposer(
+              $db: $db,
+              $table: $db.actividadesControl,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$TarjasControlTableAnnotationComposer
+    extends Composer<_$AppDatabase, $TarjasControlTable> {
+  $$TarjasControlTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get tipo =>
+      $composableBuilder(column: $table.tipo, builder: (column) => column);
+
+  GeneratedColumn<int> get cantidad =>
+      $composableBuilder(column: $table.cantidad, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get creadoEn =>
+      $composableBuilder(column: $table.creadoEn, builder: (column) => column);
+
+  $$ActividadesControlTableAnnotationComposer get actividadControlId {
+    final $$ActividadesControlTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.actividadControlId,
+            referencedTable: $db.actividadesControl,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$ActividadesControlTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.actividadesControl,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return composer;
+  }
+}
+
+class $$TarjasControlTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $TarjasControlTable,
+    TarjaControlData,
+    $$TarjasControlTableFilterComposer,
+    $$TarjasControlTableOrderingComposer,
+    $$TarjasControlTableAnnotationComposer,
+    $$TarjasControlTableCreateCompanionBuilder,
+    $$TarjasControlTableUpdateCompanionBuilder,
+    (TarjaControlData, $$TarjasControlTableReferences),
+    TarjaControlData,
+    PrefetchHooks Function({bool actividadControlId})> {
+  $$TarjasControlTableTableManager(_$AppDatabase db, $TarjasControlTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$TarjasControlTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TarjasControlTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TarjasControlTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int> actividadControlId = const Value.absent(),
+            Value<String> tipo = const Value.absent(),
+            Value<int> cantidad = const Value.absent(),
+            Value<DateTime> creadoEn = const Value.absent(),
+          }) =>
+              TarjasControlCompanion(
+            id: id,
+            actividadControlId: actividadControlId,
+            tipo: tipo,
+            cantidad: cantidad,
+            creadoEn: creadoEn,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required int actividadControlId,
+            required String tipo,
+            required int cantidad,
+            Value<DateTime> creadoEn = const Value.absent(),
+          }) =>
+              TarjasControlCompanion.insert(
+            id: id,
+            actividadControlId: actividadControlId,
+            tipo: tipo,
+            cantidad: cantidad,
+            creadoEn: creadoEn,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$TarjasControlTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({actividadControlId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (actividadControlId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.actividadControlId,
+                    referencedTable: $$TarjasControlTableReferences
+                        ._actividadControlIdTable(db),
+                    referencedColumn: $$TarjasControlTableReferences
+                        ._actividadControlIdTable(db)
+                        .id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$TarjasControlTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $TarjasControlTable,
+    TarjaControlData,
+    $$TarjasControlTableFilterComposer,
+    $$TarjasControlTableOrderingComposer,
+    $$TarjasControlTableAnnotationComposer,
+    $$TarjasControlTableCreateCompanionBuilder,
+    $$TarjasControlTableUpdateCompanionBuilder,
+    (TarjaControlData, $$TarjasControlTableReferences),
+    TarjaControlData,
+    PrefetchHooks Function({bool actividadControlId})>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -2201,4 +3907,10 @@ class $AppDatabaseManager {
       $$AnimalesPesajeTableTableManager(_db, _db.animalesPesaje);
   $$StockAnimalesTableTableManager get stockAnimales =>
       $$StockAnimalesTableTableManager(_db, _db.stockAnimales);
+  $$CarpetasControlTableTableManager get carpetasControl =>
+      $$CarpetasControlTableTableManager(_db, _db.carpetasControl);
+  $$ActividadesControlTableTableManager get actividadesControl =>
+      $$ActividadesControlTableTableManager(_db, _db.actividadesControl);
+  $$TarjasControlTableTableManager get tarjasControl =>
+      $$TarjasControlTableTableManager(_db, _db.tarjasControl);
 }

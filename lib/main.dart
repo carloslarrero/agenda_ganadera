@@ -25,6 +25,9 @@ class MyApp extends StatelessWidget {
               RepositoryProvider<StockRepository>(
                 create: (context) => StockRepository(database),
               ),
+              RepositoryProvider<ControlRepository>(
+                create: (context) => ControlRepository(database),
+              ),
             ],
             child: MultiBlocProvider(
               providers: [
@@ -37,6 +40,11 @@ class MyApp extends StatelessWidget {
                   create: (context) => StockCubit(
                     repository: context.read<StockRepository>(),
                   )..observarStock(),
+                ),
+                BlocProvider<CarpetasControlCubit>(
+                  create: (context) => CarpetasControlCubit(
+                    repository: context.read<ControlRepository>(),
+                  )..observarCarpetas(),
                 ),
               ],
               child: const MaterialApp(
